@@ -1,0 +1,16 @@
+
+*.bak
+*.old
+*.save
+*.tmp
+*.tmp.*
+.#*
+
+.vscode/
+.venv/
+.venv-system/
+stubs/
+
+.mypy_cache/
+__pycache__/
+
