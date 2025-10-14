@@ -6,10 +6,12 @@
 *.tmp.*
 .#*
 
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
 .vscode/
 .venv/
-.venv-system/
-stubs/
 
 .mypy_cache/
 __pycache__/

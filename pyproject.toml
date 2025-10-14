@@ -3,25 +3,25 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "freecad_stub_generator"
-version = "0.0.1"
-description = "Generate FreeCAD Python stubs for IDE autocompletion."
+name = "{{ cookiecutter.project_name }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.description }}"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-  { name = "Jared Cook", email = "you@example.com" }
+  { name = "{{ cookiecutter.author }}", email = "{{ cookiecutter.email }}" }
 ]
-requires-python = ">=3.9"
-dependencies = [
-  "mypy==1.9",
-]
-keywords = ["python", "freecad", "stubs", "PySide2"]
+keywords = "{{ cookiecutter.keywords }}"
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
   "Intended Audience :: Education",
   "Programming Language :: Python :: 3",
   "Operating System :: POSIX :: Linux"
+]
+requires-python = ">=3.9"
+dependencies = [
+  "mypy==1.9",
 ]
 
 # Optional dependencies (like devDependencies in JS)
@@ -69,6 +69,6 @@ ignore_missing_imports = true
 testpaths = ["tests"]
 addopts = ["-v", "--maxfail=1", "--disable-warnings"]
 
-# Optional entry point (lets you run with `python -m freecad_stub_generator`)
+# Optional entry point (lets you run with `python -m {{ cookiecutter.project_name }}`)
 [project.scripts]
-freecad-stubgen = "freecad_stub_generator.__main__:main"
+{{ cookiecutter.project_name }} = "{{ cookiecutter.project_name }}.__main__:main"
