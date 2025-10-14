@@ -3,7 +3,7 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "{{ cookiecutter.project_name }}"
+name = "{{ cookiecutter.package_name }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.description }}"
 readme = "README.md"
@@ -11,14 +11,8 @@ license = { text = "MIT" }
 authors = [
   { name = "{{ cookiecutter.author }}", email = "{{ cookiecutter.email }}" }
 ]
-keywords = "{{ cookiecutter.keywords }}"
-classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Intended Audience :: Developers",
-  "Intended Audience :: Education",
-  "Programming Language :: Python :: 3",
-  "Operating System :: POSIX :: Linux"
-]
+keywords = {{ cookiecutter.keywords|tojson }}
+classifiers = {{ cookiecutter.classifiers|tojson }}
 requires-python = ">=3.9"
 dependencies = [
   "mypy==1.9",
@@ -69,6 +63,6 @@ ignore_missing_imports = true
 testpaths = ["tests"]
 addopts = ["-v", "--maxfail=1", "--disable-warnings"]
 
-# Optional entry point (lets you run with `python -m {{ cookiecutter.project_name }}`)
+# Optional entry point (lets you run with `python -m {{ cookiecutter.package_name }}`)
 [project.scripts]
-{{ cookiecutter.project_name }} = "{{ cookiecutter.project_name }}.__main__:main"
+{{ cookiecutter.package_name }} = "{{ cookiecutter.package_name }}.__main__:main"

@@ -27,7 +27,7 @@ RUFF := $(ACTIVATE) && $(PYTHON) -m ruff
 MYPY := $(ACTIVATE) && $(PYTHON) -m mypy
 PYTEST := $(ACTIVATE) && $(PYTHON) -m pytest
 SPHINX := $(ACTIVATE) && $(PYTHON) -m sphinx -b markdown
-{{ cookiecutter.project_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.project_name }}.{{ cookiecutter.project_name }}
+{{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
 
 # Jekyll commands
 JEKYLL_BUILD : = bundle exec jekyll build
@@ -83,7 +83,7 @@ jekyll-serve: docs
 	cd $(JEKYLL_DIR) && $(JEKYLL_SERVE)
 
 run: install
-	$({{ cookiecutter.project_name|upper }})
+	$({{ cookiecutter.package_name|upper }})
 
 # Clean build artifacts
 clean:
@@ -105,6 +105,6 @@ help:
 	@echo "  make typecheck   Run Mypy type checking"
 	@echo "  make test        Run Pytest suite"
 	@echo "  make docs        Build Sphinx + Jekyll documentation"
-	@echo "  make run         Run {{ cookiecutter.project_name }}.py"
+	@echo "  make run         Run {{ cookiecutter.package_name }}.py"
 	@echo "  make clean       Clean build artifacts"
 	@echo "  make all         Run lint, typecheck, test, and docs"
