@@ -1,11 +1,11 @@
 # coding: utf-8
 """{{ cookiecutter.project_name }} Package
 
-© All rights reserved. {{ cookiecutter.author_name }}
+© All rights reserved. {{ cookiecutter.author }}
 
 See the LICENSE.TXT file for more details.
 
-Author: {{ cookiecutter.author_name }}
+Author: {{ cookiecutter.author }}
 Description: Entry point for running {{ cookiecutter.project_name }} via `python -m {{ cookiecutter.package_name }}`.
 """
 
