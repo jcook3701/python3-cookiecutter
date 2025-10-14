@@ -14,6 +14,11 @@ import os
 import json
 
 def main():
+   # Detect CI (e.g. GitHub Actions, GitLab CI, etc.)
+    if os.getenv("CI"):
+        print("⚙️  Detected CI environment — skipping GitHub Docs generation.")
+        return
+    
     # current directory is the new generated Python project
     project_dir = os.getcwd()
     docs_dir = os.path.join(project_dir, "docs")
@@ -41,14 +46,17 @@ def main():
         "buymeacoffee_username": ctx.get("buymeacoffee_username")
     }
 
-    print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")
+    print(f"📘 Generating GitHub Docs for {extra_ctx.get('project_name', '(unknown)')}...")
 
-    cookiecutter(
-        "https://github.com/jcook3701/github-docs-cookiecutter",
-        no_input=True,
-        extra_context=extra_ctx,
-        output_dir=docs_dir
-    )
+    try:
+        cookiecutter(
+            "https://github.com/jcook3701/github-docs-cookiecutter",
+            no_input=True,
+            extra_context=extra_ctx,
+            output_dir=docs_dir
+        )
+    except Exception as e:
+        print(f"⚠️  Skipping GitHub Docs generation: {e}")
 
 if __name__ == "__main__":
     main()
