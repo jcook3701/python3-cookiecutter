@@ -1,6 +1,6 @@
 # {{ cookiecutter.project_name }}
 
-Author: {{ cookiecutter.author_name }}
+Author: {{ cookiecutter.author }}
 Version: {{ cookiecutter.version }}
 
 1. Pull Project with cookiecutter command:  

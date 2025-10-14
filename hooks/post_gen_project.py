@@ -1,11 +1,11 @@
 # coding: utf-8
-"""{{ cookiecutter.project_name }} Package
+"""Python3 Cookiecutter Package
 
-© All rights reserved. {{ cookiecutter.author_name }}
+© All rights reserved. Jared Cook
 
 See the LICENSE.TXT file for more details.
 
-Author: {{ cookiecutter.author_name }}
+Author: Jared Cook
 """
 
 from cookiecutter.utils import rmtree
@@ -30,12 +30,15 @@ def main():
     # build the extra context for the Jekyll template
     extra_ctx = {
         "project_name": ctx.get("project_name"),
-        "github_user": ctx.get("github_user"),
+        "author": ctx.get("author"),
         "version": ctx.get("version"),
         "description": ctx.get("description"),
+        "theme": ctx.get("github_docs_theme"),
         "ga_tracking": ctx.get("ga_tracking"),
-        "buy_me_a_coffee": ctx.get("buy_me_a_coffee"),
-        "theme": ctx.get("github_docs_theme")
+        "github_username": ctx.get("github_username"),
+        "linkedin_usercode": ctx.get("linkedin_usercode"),
+        "twitter_username": ctx.get("twitter_username"),
+        "buymeacoffee_username": ctx.get("buymeacoffee_username")
     }
 
     print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")

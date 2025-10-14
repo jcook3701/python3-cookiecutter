@@ -1,7 +1,7 @@
 {
   "project_name": "python3-cookiecutter",
   "package_name": "{{ cookiecutter.project_name|lower|replace('-', '_') }}",
-  "author_name": "Jared Cook",
+  "author": "Jared Cook",
   "email": "",
   "version": "0.1.0",
   "description": "Documentation site for my project",
