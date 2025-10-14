@@ -25,7 +25,7 @@ jobs:
       - name: Lint Jinja templates
         run: |
           echo "Linting all template files under {{ cookiecutter.package_name }}..."
-          find {{ cookiecutter.package_name }} -type f \
+          find '{{ cookiecutter.package_name }}' -type f \
             ! -name "*.png" ! -name "*.jpg" ! -name "*.ico" ! -name "*.gif" \
             -print0 | while IFS= read -r -d '' f; do
              # Skip empty or binary files
