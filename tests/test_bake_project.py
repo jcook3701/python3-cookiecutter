@@ -6,7 +6,7 @@ def test_bake_with_defaults(cookies):
 
     project = result.project
     assert project.isdir()
-    assert project.join("README.md").is_file()
+    assert project.join("README.md").isfile()
 
 
 def test_bake_with_custom_name(cookies):
