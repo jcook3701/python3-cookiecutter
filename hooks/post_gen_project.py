@@ -34,18 +34,18 @@ def main():
         # fallback if not found
         ctx = {}
 
-    # build the extra context for the Jekyll template
+    # Use environment variables set by Cookiecutter
     extra_ctx = {
-        "project_name": ctx.get("project_name"),
-        "author": ctx.get("author"),
-        "version": ctx.get("version"),
-        "description": ctx.get("description"),
-        "theme": ctx.get("github_docs_theme"),
-        "ga_tracking": ctx.get("ga_tracking"),
-        "github_username": ctx.get("github_username"),
-        "linkedin_usercode": ctx.get("linkedin_usercode"),
-        "twitter_username": ctx.get("twitter_username"),
-        "buymeacoffee_username": ctx.get("buymeacoffee_username")
+        "project_name": os.environ.get("COOKIECUTTER_PROJECT_NAME"),
+        "author": os.environ.get("COOKIECUTTER_AUTHOR"),
+        "version": os.environ.get("COOKIECUTTER_VERSION"),
+        "description": os.environ.get("COOKIECUTTER_DESCRIPTION"),
+        "theme": os.environ.get("COOKIECUTTER_GITHUB_DOCS_THEME"),
+        "ga_tracking": os.environ.get("COOKIECUTTER_GA_TRACKING"),
+        "github_username": os.environ.get("COOKIECUTTER_GITHUB_USERNAME"),
+        "linkedin_usercode": os.environ.get("COOKIECUTTER_LINKEDIN_USERCODE"),
+        "twitter_username": os.environ.get("COOKIECUTTER_TWITTER_USERNAME"),
+        "buymeacoffee_username": os.environ.get("COOKIECUTTER_BUYMEACOFFEE_USERNAME"),
     }
 
     print(f"📘 Generating GitHub Docs for {extra_ctx.get('project_name', '(unknown)')}...")
@@ -61,7 +61,8 @@ def main():
             extra_context=extra_ctx,
             output_dir=tmp_dir
         )
- # Move everything from the nested folder into ./docs/jekyll
+        
+        # Move everything from the nested folder into ./docs/jekyll
         nested = os.path.join(tmp_dir, os.listdir(tmp_dir)[0])
         os.makedirs(jekyll_dir, exist_ok=True)
         for item in os.listdir(nested):
