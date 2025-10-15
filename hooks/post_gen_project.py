@@ -28,22 +28,22 @@ def main():
 
     os.makedirs(tmp_dir, exist_ok=True)
     
-   # this variable is automatically injected by Cookiecutter
-    from __main__ import cookiecutter  
-
-    print(cookiecutter)
+    # ✅ Read the rendered values from cookiecutter.json
+    context_file = os.path.join(project_dir, "cookiecutter.json")
+    with open(context_file) as f:
+        ctx = json.load(f)
 
     extra_ctx = {
-        "project_name": cookiecutter["project_name"],
-        "author": cookiecutter["author"],
-        "version": cookiecutter["version"],
-        "description": cookiecutter["description"],
-        "theme": cookiecutter["github_docs_theme"],
-        "ga_tracking": cookiecutter["ga_tracking"],
-        "github_username": cookiecutter["github_username"],
-        "linkedin_usercode": cookiecutter["linkedin_usercode"],
-        "twitter_username": cookiecutter["twitter_username"],
-        "buymeacoffee_username": cookiecutter["buymeacoffee_username"],
+        "project_name": ctx.get("project_name"),
+        "author": ctx.get("author"),
+        "version": ctx.get("version"),
+        "description": ctx.get("description"),
+        "theme": ctx.get("github_docs_theme"),
+        "ga_tracking": ctx.get("ga_tracking"),
+        "github_username": ctx.get("github_username"),
+        "linkedin_usercode": ctx.get("linkedin_usercode"),
+        "twitter_username": ctx.get("twitter_username"),
+        "buymeacoffee_username": ctx.get("buymeacoffee_username"),
     }
 
     print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")
