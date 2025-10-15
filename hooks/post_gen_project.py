@@ -40,7 +40,7 @@ def main():
         "author": context.get("author"),
         "version": context.get("version"),
         "description": context.get("description"),
-        "theme": context.get("github_docs_theme"),
+        "theme": context.get("theme"),
         "ga_tracking": context.get("ga_tracking"),
         "github_username": context.get("github_username"),
         "linkedin_usercode": context.get("linkedin_usercode"),
