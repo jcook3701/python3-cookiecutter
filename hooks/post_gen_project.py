@@ -12,6 +12,7 @@ from cookiecutter.utils import rmtree
 from cookiecutter.main import cookiecutter
 import os
 import json
+import shutil
 
 def main():
    # Detect CI (e.g. GitHub Actions, GitLab CI, etc.)
