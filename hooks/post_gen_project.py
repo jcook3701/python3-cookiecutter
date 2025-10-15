@@ -24,7 +24,10 @@ def main():
     project_dir = os.getcwd()
     docs_dir = os.path.join(project_dir, "docs")
     jekyll_dir = os.path.join(docs_dir, "jekyll")
+    tmp_dir = os.path.join(docs_dir, "_tmp_docs")
 
+    os.makedirs(tmp_dir, exist_ok=True)
+    
     # Use Cookiecutter context
     context = os.environ.get('COOKIECUTTER_CONTEXT')
     if context:
@@ -34,25 +37,21 @@ def main():
         # fallback if not found
         ctx = {}
 
-    # Use environment variables set by Cookiecutter
+    # ⚙️ These placeholders are rendered *before* this hook runs.
     extra_ctx = {
-        "project_name": ctx.get("project_name", "UnknownProject"),
-        "author": ctx.get("author", "UnknownAuthor"),
-        "version": ctx.get("version", "0.1.0"),
-        "description": ctx.get("description", ""),
-        "theme": ctx.get("github_docs_theme", "pmarsceill/just-the-docs"),
-        "ga_tracking": ctx.get("ga_tracking", ""),
-        "github_username": ctx.get("github_username", ""),
-        "linkedin_usercode": ctx.get("linkedin_usercode", ""),
-        "twitter_username": ctx.get("twitter_username", ""),
-        "buymeacoffee_username": ctx.get("buymeacoffee_username", ""),
+        "project_name": "{{ cookiecutter.project_name }}",
+        "author": "{{ cookiecutter.author }}",
+        "version": "{{ cookiecutter.version }}",
+        "description": "{{ cookiecutter.description }}",
+        "theme": "{{ cookiecutter.github_docs_theme }}",
+        "ga_tracking": "{{ cookiecutter.ga_tracking }}",
+        "github_username": "{{ cookiecutter.github_username }}",
+        "linkedin_usercode": "{{ cookiecutter.linkedin_usercode }}",
+        "twitter_username": "{{ cookiecutter.twitter_username }}",
+        "buymeacoffee_username": "{{ cookiecutter.buymeacoffee_username }}",
     }
 
     print(f"📘 Generating GitHub Docs for {extra_ctx.get('project_name', '(unknown)')}...")
-
-    # Temporary output dir so Cookiecutter doesn't create a nested folder we don't want
-    tmp_dir = os.path.join(docs_dir, "_tmp_docs")
-    os.makedirs(tmp_dir, exist_ok=True)    
     
     try:
         cookiecutter(
