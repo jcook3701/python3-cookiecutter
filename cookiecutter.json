@@ -11,12 +11,15 @@
   "linkedin_usercode": "jared-cook-b3585a114",
   "buymeacoffee_username": "jcook3701",
   "theme": "pmarsceill/just-the-docs",
-  "keywords": ["python3"],
-  "classifiers": [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Education",
-    "Programming Language :: Python :: 3",
-    "Operating System :: POSIX :: Linux"
-  ]
+  "pypi_config": {
+    "keywords": ["python3"],
+    "classifiers": [
+      "Development Status :: 3 - Alpha",
+      "Intended Audience :: Developers",
+      "Intended Audience :: Education",
+      "Programming Language :: Python :: 3",
+      "Operating System :: POSIX :: Linux"
+    ],
+    "requires-python": ">=3.9"
+  }
 }
