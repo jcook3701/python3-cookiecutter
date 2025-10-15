@@ -28,6 +28,8 @@ $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git \
 replace ```test-project``` or any of the other variables with real context configuration variables:  
 
 ### Future Ideas:  
-[Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
-TODO: Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
-NOTE: This code currently works with cookiecutter from Ubuntu's repository.  
+1. [Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
+2. Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
+
+### Authors Notes:  
+1. This code currently works with cookiecutter from Ubuntu's repository.  
