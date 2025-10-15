@@ -11,9 +11,9 @@ license = { text = "MIT" }
 authors = [
   { name = "{{ cookiecutter.author }}", email = "{{ cookiecutter.email }}" }
 ]
-keywords = {{ cookiecutter.keywords|tojson }}
-classifiers = {{ cookiecutter.classifiers|tojson }}
-requires-python = ">=3.9"
+keywords = {{ cookiecutter.config.keywords|tojson }}
+classifiers = {{ cookiecutter.config.classifiers|tojson }}
+requires-python = {{ cookiecutter.config.requires_python|tojson }}
 dependencies = [
   "mypy==1.9",
 ]
