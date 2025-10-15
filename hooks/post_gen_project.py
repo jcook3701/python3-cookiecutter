@@ -28,11 +28,11 @@ def main():
 
     os.makedirs(tmp_dir, exist_ok=True)
     
-    # ✅ Read the rendered values from cookiecutter.json
-    context_file = os.path.join(project_dir, "cookiecutter.json")
-    with open(context_file) as f:
-        ctx = json.load(f)
+    # Access cookiecutter variables
+    context = {{ cookiecutter | jsonify }}
 
+    printf(context)
+    
     extra_ctx = {
         "project_name": ctx.get("project_name"),
         "author": ctx.get("author"),

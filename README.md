@@ -19,3 +19,5 @@ $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git
 $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git --checkout develop  
 ```
 
+### Future Ideas:  
+[Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
