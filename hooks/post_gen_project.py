@@ -31,7 +31,9 @@ def main():
     # Access cookiecutter variables
     context = {{ cookiecutter | jsonify }}
 
-    print(context.get)
+    print(context)
+
+    print(context.get("project_name"))
     
     extra_ctx = {
         "project_name": context.get("project_name"),
