@@ -22,6 +22,7 @@ def main():
     # current directory is the new generated Python project
     project_dir = os.getcwd()
     docs_dir = os.path.join(project_dir, "docs")
+    jekyll_dir = os.path.join(docs_dir, "jekyll")
 
     # load the original context from cookiecutter.json (created automatically)
     context_file = os.path.join(project_dir, "cookiecutter.json")
@@ -48,13 +49,28 @@ def main():
 
     print(f"📘 Generating GitHub Docs for {extra_ctx.get('project_name', '(unknown)')}...")
 
+    # Temporary output dir so Cookiecutter doesn't create a nested folder we don't want
+    tmp_dir = os.path.join(docs_dir, "_tmp_docs")
+    os.makedirs(tmp_dir, exist_ok=True)    
+    
     try:
         cookiecutter(
             "https://github.com/jcook3701/github-docs-cookiecutter",
             no_input=True,
             extra_context=extra_ctx,
-            output_dir=docs_dir
+            output_dir=tmp_dir
         )
+ # Move everything from the nested folder into ./docs/jekyll
+        nested = os.path.join(tmp_dir, os.listdir(tmp_dir)[0])
+        os.makedirs(jekyll_dir, exist_ok=True)
+        for item in os.listdir(nested):
+            shutil.move(os.path.join(nested, item), jekyll_dir)
+
+        # Cleanup temporary folder
+        shutil.rmtree(tmp_dir)
+
+        print(f"✅ Docs generated in {jekyll_dir}")
+        
     except Exception as e:
         print(f"⚠️  Skipping GitHub Docs generation: {e}")
 
