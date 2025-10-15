@@ -31,19 +31,19 @@ def main():
     # Access cookiecutter variables
     context = {{ cookiecutter | jsonify }}
 
-    print(context)
+    print(context.get)
     
     extra_ctx = {
-        "project_name": ctx.get("project_name"),
-        "author": ctx.get("author"),
-        "version": ctx.get("version"),
-        "description": ctx.get("description"),
-        "theme": ctx.get("github_docs_theme"),
-        "ga_tracking": ctx.get("ga_tracking"),
-        "github_username": ctx.get("github_username"),
-        "linkedin_usercode": ctx.get("linkedin_usercode"),
-        "twitter_username": ctx.get("twitter_username"),
-        "buymeacoffee_username": ctx.get("buymeacoffee_username"),
+        "project_name": context.get("project_name"),
+        "author": context.get("author"),
+        "version": context.get("version"),
+        "description": context.get("description"),
+        "theme": context.get("github_docs_theme"),
+        "ga_tracking": context.get("ga_tracking"),
+        "github_username": context.get("github_username"),
+        "linkedin_usercode": context.get("linkedin_usercode"),
+        "twitter_username": context.get("twitter_username"),
+        "buymeacoffee_username": context.get("buymeacoffee_username"),
     }
 
     print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")
