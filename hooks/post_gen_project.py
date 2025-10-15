@@ -30,10 +30,6 @@ def main():
     
     # Access cookiecutter variables
     context = {{ cookiecutter | jsonify }}
-
-    print(context)
-
-    print(context.get("project_name"))
     
     extra_ctx = {
         "project_name": context.get("project_name"),
@@ -47,12 +43,10 @@ def main():
         "twitter_username": context.get("twitter_username"),
         "buymeacoffee_username": context.get("buymeacoffee_username"),
     }
-
-
-    print(extra_ctx)
     
     print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")
-    
+
+    # Pass cookiecutter variables to github-docs-cookiecutter
     try:
         cookiecutter(
             "https://github.com/jcook3701/github-docs-cookiecutter",
