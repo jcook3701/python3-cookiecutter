@@ -29,6 +29,8 @@ replace ```test-project``` or any of the other variables with real context confi
 
 ### Future Ideas:  
 1. [Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
+   * Add freecad paths for freecad projects.  
+   * etc.  
 2. Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
 
 ### Authors Notes:  
