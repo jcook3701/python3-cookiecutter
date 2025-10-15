@@ -31,6 +31,8 @@ def main():
    # this variable is automatically injected by Cookiecutter
     from __main__ import cookiecutter  
 
+    print(cookiecutter)
+
     extra_ctx = {
         "project_name": cookiecutter["project_name"],
         "author": cookiecutter["author"],
