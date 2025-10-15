@@ -28,30 +28,23 @@ def main():
 
     os.makedirs(tmp_dir, exist_ok=True)
     
-    # Use Cookiecutter context
-    context = os.environ.get('COOKIECUTTER_CONTEXT')
-    if context:
-        import json
-        ctx = json.loads(context)
-    else:
-        # fallback if not found
-        ctx = {}
+   # this variable is automatically injected by Cookiecutter
+    from __main__ import cookiecutter  
 
-    # ⚙️ These placeholders are rendered *before* this hook runs.
     extra_ctx = {
-        "project_name": "{{ cookiecutter.project_name }}",
-        "author": "{{ cookiecutter.author }}",
-        "version": "{{ cookiecutter.version }}",
-        "description": "{{ cookiecutter.description }}",
-        "theme": "{{ cookiecutter.github_docs_theme }}",
-        "ga_tracking": "{{ cookiecutter.ga_tracking }}",
-        "github_username": "{{ cookiecutter.github_username }}",
-        "linkedin_usercode": "{{ cookiecutter.linkedin_usercode }}",
-        "twitter_username": "{{ cookiecutter.twitter_username }}",
-        "buymeacoffee_username": "{{ cookiecutter.buymeacoffee_username }}",
+        "project_name": cookiecutter["project_name"],
+        "author": cookiecutter["author"],
+        "version": cookiecutter["version"],
+        "description": cookiecutter["description"],
+        "theme": cookiecutter["github_docs_theme"],
+        "ga_tracking": cookiecutter["ga_tracking"],
+        "github_username": cookiecutter["github_username"],
+        "linkedin_usercode": cookiecutter["linkedin_usercode"],
+        "twitter_username": cookiecutter["twitter_username"],
+        "buymeacoffee_username": cookiecutter["buymeacoffee_username"],
     }
 
-    print(f"📘 Generating GitHub Docs for {extra_ctx.get('project_name', '(unknown)')}...")
+    print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")
     
     try:
         cookiecutter(
