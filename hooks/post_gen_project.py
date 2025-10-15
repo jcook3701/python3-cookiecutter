@@ -25,27 +25,27 @@ def main():
     docs_dir = os.path.join(project_dir, "docs")
     jekyll_dir = os.path.join(docs_dir, "jekyll")
 
-    # load the original context from cookiecutter.json (created automatically)
-    context_file = os.path.join(project_dir, "cookiecutter.json")
-    if os.path.exists(context_file):
-        with open(context_file) as f:
-            ctx = json.load(f)
+    # Use Cookiecutter context
+    context = os.environ.get('COOKIECUTTER_CONTEXT')
+    if context:
+        import json
+        ctx = json.loads(context)
     else:
         # fallback if not found
         ctx = {}
 
     # Use environment variables set by Cookiecutter
     extra_ctx = {
-        "project_name": os.environ.get("COOKIECUTTER_PROJECT_NAME"),
-        "author": os.environ.get("COOKIECUTTER_AUTHOR"),
-        "version": os.environ.get("COOKIECUTTER_VERSION"),
-        "description": os.environ.get("COOKIECUTTER_DESCRIPTION"),
-        "theme": os.environ.get("COOKIECUTTER_GITHUB_DOCS_THEME"),
-        "ga_tracking": os.environ.get("COOKIECUTTER_GA_TRACKING"),
-        "github_username": os.environ.get("COOKIECUTTER_GITHUB_USERNAME"),
-        "linkedin_usercode": os.environ.get("COOKIECUTTER_LINKEDIN_USERCODE"),
-        "twitter_username": os.environ.get("COOKIECUTTER_TWITTER_USERNAME"),
-        "buymeacoffee_username": os.environ.get("COOKIECUTTER_BUYMEACOFFEE_USERNAME"),
+        "project_name": ctx.get("project_name", "UnknownProject"),
+        "author": ctx.get("author", "UnknownAuthor"),
+        "version": ctx.get("version", "0.1.0"),
+        "description": ctx.get("description", ""),
+        "theme": ctx.get("github_docs_theme", "pmarsceill/just-the-docs"),
+        "ga_tracking": ctx.get("ga_tracking", ""),
+        "github_username": ctx.get("github_username", ""),
+        "linkedin_usercode": ctx.get("linkedin_usercode", ""),
+        "twitter_username": ctx.get("twitter_username", ""),
+        "buymeacoffee_username": ctx.get("buymeacoffee_username", ""),
     }
 
     print(f"📘 Generating GitHub Docs for {extra_ctx.get('project_name', '(unknown)')}...")
