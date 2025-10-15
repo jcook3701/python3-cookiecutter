@@ -48,6 +48,9 @@ def main():
         "buymeacoffee_username": context.get("buymeacoffee_username"),
     }
 
+
+    print(extra_ctx)
+    
     print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")
     
     try:
