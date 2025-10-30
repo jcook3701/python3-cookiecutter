@@ -30,9 +30,9 @@ SPHINX := $(ACTIVATE) && $(PYTHON) -m sphinx -b markdown
 {{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
 
 # Jekyll commands
-JEKYLL_BUILD : = bundle exec jekyll build
-JEKYLL_CLEAN : = bundle exec jekyll clean
-JEKYLL_SERVE : = bundle exec jekyll serve
+JEKYLL_BUILD := bundle exec jekyll build
+JEKYLL_CLEAN := bundle exec jekyll clean
+JEKYLL_SERVE := bundle exec jekyll serve
 
 # -------------------------------------------------------------------
 .PHONY: all venv install lint-check lint-fix typecheck test docs jekyll-serve clean help
