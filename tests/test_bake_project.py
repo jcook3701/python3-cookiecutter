@@ -1,3 +1,12 @@
+"""Python3 Cookiecutter Package
+
+© All rights reserved. Jared Cook
+
+See the LICENSE.TXT file for more details.
+
+Author: Jared Cook
+"""
+
 def test_bake_with_defaults(cookies):
     """Ensure the template bakes correctly with default context."""
     result = cookies.bake()

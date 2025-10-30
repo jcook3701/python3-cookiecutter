@@ -2,9 +2,9 @@
   "project_name": "python3-cookiecutter",
   "package_name": "{{ cookiecutter.project_name|lower|replace('-', '_') }}",
   "author": "Jared Cook",
-  "email": "",
+  "email": "jcook3701+github@gmail.com",
   "version": "0.1.0",
-  "description": "Documentation site for my project",
+  "description": "Description of Python3 project",
   "ga_tracking": "G-C7PWLWSHB9",
   "github_username": "jcook3701",
   "twitter_username": "",
@@ -14,12 +14,12 @@
   "config": {
     "keywords": ["python3"],
     "classifiers": [
-      "Development Status :: 3 - Alpha",
-      "Intended Audience :: Developers",
-      "Intended Audience :: Education",
       "Programming Language :: Python :: 3",
-      "Operating System :: POSIX :: Linux"
+      "Operating System :: OS Independent"
     ],
-    "requires_python": ">=3.9"
-  }
+    "requires_python": ">=3.11"
+  },
+  "_copy_without_render": [
+    ".github/*"
+  ]
 }
