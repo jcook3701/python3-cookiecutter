@@ -1,11 +1,12 @@
+# Project Lint with yaml-lint
 ---
-name: Cookiecutter ruff Lint
+name: Template YAML Lint
 
 on:
   push:
-    branches: [master, develop]
+    branches: [main, develop]
   pull_request:
-    branches: [master, develop]
+    branches: [main, develop]
 
 jobs:
   lint:
@@ -20,10 +21,10 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install ruff
+      - name: Install yaml-lint
         run: |
           make install
 
-      - name: Lint with ruff
+      - name: Lint YAML files
         run: |
-          make ruff-lint-check
+          make yaml-lint-check

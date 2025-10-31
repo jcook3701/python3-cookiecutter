@@ -1,14 +1,14 @@
 ---
-name: Cookiecutter ruff Lint
+name: Cookiecutter Tests
 
 on:
   push:
-    branches: [master, develop]
+    branches: [main, develop]
   pull_request:
-    branches: [master, develop]
+    branches: [main, develop]
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +20,10 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install ruff
+      - name: Install dependencies
         run: |
           make install
 
-      - name: Lint with ruff
+      - name: Run tests
         run: |
-          make ruff-lint-check
+          make test

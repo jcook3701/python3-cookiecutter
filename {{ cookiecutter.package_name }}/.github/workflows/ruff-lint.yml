@@ -1,11 +1,12 @@
+# Project Lint with ruff
 ---
 name: Cookiecutter ruff Lint
 
 on:
   push:
-    branches: [master, develop]
+    branches: [main, develop]
   pull_request:
-    branches: [master, develop]
+    branches: [main, develop]
 
 jobs:
   lint:

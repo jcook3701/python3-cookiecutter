@@ -8,7 +8,6 @@
 # --------------------------------------------------
 SHELL := /bin/bash
 .SHELLFLAGS := -O globstar -c
-
 # --------------------------------------------------
 # Build Directories
 # --------------------------------------------------
@@ -20,7 +19,6 @@ JEKYLL_DIR := docs/jekyll
 
 SPHINX_BUILD_DIR := $(SPHINX_DIR)/_build/html
 JEKYLL_OUTPUT_DIR := $(JEKYLL_DIR)/sphinx
-
 # --------------------------------------------------
 # Python / Virtual Environment
 # --------------------------------------------------
@@ -178,4 +176,4 @@ help:
 	@echo "  make docs                   Build Sphinx + Jekyll documentation"
 	@echo "  make jekyll-serve           Serve Jekyll site locally"
 	@echo "  make clean                  Clean build artifacts"
-	@echo "  make all                    Run lint, typecheck, test, and docs"
+	@echo "  make all                    Run install, lint, typecheck, test, and docs"
