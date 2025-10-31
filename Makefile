@@ -43,7 +43,7 @@ MYPY := $(ACTIVATE) && $(PYTHON) -m mypy
 # --------------------------------------------------
 # Linting
 # --------------------------------------------------
-RUFF := $(ACTIVATE) && $(PYTHON) -m ruff
+RUFF := $(ACTIVATE) && $(PYTHON) -m ruff -v
 YAMLLINT := $(ACTIVATE) && $(PYTHON) -m yamllint
 JINJA := $(ACTIVATE) && jinja2 --strict
 # --------------------------------------------------
