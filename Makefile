@@ -1,6 +1,6 @@
 # Makefile
 # =========================================
-# Project: {{ cookiecutter.project_name }}
+# Project: python3-cookiecutter
 # =========================================
 
 # --------------------------------------------------
@@ -11,18 +11,19 @@ SHELL := /bin/bash
 # --------------------------------------------------
 # Build Directories
 # --------------------------------------------------
-SRC_DIR := src
-TEST_DIR := tests
-SPHINX_DIR = docs/sphinx
-JEKYLL_DIR = docs/jekyll
+HOOKS_DIR := hooks
+TESTS_DIR := tests
+DOCS_DIR := docs
+SPHINX_DIR := docs/sphinx
+JEKYLL_DIR := docs/jekyll
 
-SPHINX_BUILD_DIR = $(SPHINX_DIR)/_build/html
-JEKYLL_OUTPUT_DIR = $(JEKYLL_DIR)/sphinx
+SPHINX_BUILD_DIR := $(SPHINX_DIR)/_build/html
+JEKYLL_OUTPUT_DIR := $(JEKYLL_DIR)/sphinx
 # --------------------------------------------------
 # Python / Virtual Environment
 # --------------------------------------------------
-PYTHON := python3
-VENV_DIR = .venv
+PYTHON := python3.11
+VENV_DIR := .venv
 # --------------------------------------------------
 # Python Dependencies
 # --------------------------------------------------
@@ -33,7 +34,7 @@ DEV_DOCS := .[docs]
 # Python Commands
 # --------------------------------------------------
 CREATE_VENV := $(PYTHON) -m venv $(VENV_DIR)
-ACTIVATE = source $(VENV_DIR)/bin/activate
+ACTIVATE := source $(VENV_DIR)/bin/activate
 PIP := $(ACTIVATE) && $(PYTHON) -m pip
 # --------------------------------------------------
 # Typing
@@ -42,7 +43,7 @@ MYPY := $(ACTIVATE) && $(PYTHON) -m mypy
 # --------------------------------------------------
 # Linting
 # --------------------------------------------------
-RUFF := $(ACTIVATE) && $(PYTHON) -m ruff
+RUFF := $(ACTIVATE) && $(PYTHON) -m ruff -v
 YAMLLINT := $(ACTIVATE) && $(PYTHON) -m yamllint
 JINJA := $(ACTIVATE) && jinja2 --strict
 # --------------------------------------------------
@@ -54,17 +55,13 @@ PYTEST := $(ACTIVATE) && $(PYTHON) -m pytest
 # --------------------------------------------------
 SPHINX := $(ACTIVATE) && $(PYTHON) -m sphinx -b markdown
 # --------------------------------------------------
-# {{ cookiecutter.package_name }} Command
-# --------------------------------------------------
-{{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
-# --------------------------------------------------
 # Jekyll
 # --------------------------------------------------
 JEKYLL_BUILD := bundle exec jekyll build
 JEKYLL_CLEAN := bundle exec jekyll clean
 JEKYLL_SERVE := bundle exec jekyll serve
 
-# -------------------------------------------------------------------
+# --------------------------------------------------
 .PHONY: all venv install ruff-lint-check ruff-lint-fix yaml-lint-check \
 	jinja2-lint-check lint-check typecheck test docs jekyll-serve clean help
 
@@ -77,7 +74,7 @@ all: install lint-check typecheck test docs
 # Virtual Environment Setup
 # --------------------------------------------------
 venv:
-	@echo "Creating virtual environment..."
+	@echo "🐍 Creating virtual environment..."
 	$(CREATE_VENV)
 	@echo "✅ Virtual environment created."
 
@@ -92,13 +89,13 @@ install: venv
 # --------------------------------------------------
 # Linting (ruff, yaml, jinja2)
 # --------------------------------------------------
-ruff-lint-check: install
+ruff-lint-check:
 	@echo "🔍 Running ruff linting..."
-	$(RUFF) check $(SRC_DIR) $(TEST_DIR)
+	$(RUFF) check $(HOOKS_DIR) $(TESTS_DIR)
 
-ruff-lint-fix: install
+ruff-lint-fix:
 	@echo "🔍 Running ruff lint fixes..."
-	$(RUFF) check --fix --show-files $(SRC_DIR) $(TEST_DIR)
+	$(RUFF) check --fix --show-files $(HOOKS_DIR) $(TESTS_DIR)
 
 yaml-lint-check:
 	@echo "🔍 Running yamllint..."
@@ -126,13 +123,13 @@ lint-check: ruff-lint-check yaml-lint-check jinja2-lint-check
 # Typechecking (MyPy)
 # --------------------------------------------------
 typecheck:
-	$(MYPY) $(SRC_DIR)
+	$(MYPY) $(HOOKS_DIR)
 
 # --------------------------------------------------
 # Testing (pytest)
 # --------------------------------------------------
 test:
-	$(PYTEST) -v --maxfail=1 --disable-warnings $(TEST_DIR)
+	$(PYTEST) -v --maxfail=1 --disable-warnings $(TESTS_DIR)
 
 # --------------------------------------------------
 # Documentation (Sphinx + Jekyll)
@@ -149,13 +146,6 @@ jekyll-serve: docs
 	@echo "🚀 Starting Jekyll development server..."
 	cd $(JEKYLL_DIR) && $(JEKYLL_SERVE)
 
-
-# --------------------------------------------------
-# Run {{ cookiecutter.package_name }} Python3 Program
-# --------------------------------------------------
-run:
-	$({{ cookiecutter.package_name|upper }})
-
 # --------------------------------------------------
 # Clean artifacts
 # --------------------------------------------------
@@ -163,7 +153,7 @@ clean:
 	rm -rf $(SPHINX_DIR)/_build $(JEKYLL_OUTPUT_DIR)
 	cd $(JEKYLL_DIR) && $(JEKYLL_CLEAN)
 	rm -rf build dist *.egg-info
-	find $(SRC_DIR) $(TEST_DIR) -name "__pycache__" -type d -exec rm -rf {} +
+	find $(HOOKS_DIR) $(TESTS_DIR) -name "__pycache__" -type d -exec rm -rf {} +
 	-[ -d "$(VENV_DIR)" ] && rm -r $(VENV_DIR)
 	@echo "🧹 Cleaned build artifacts."
 
@@ -171,7 +161,7 @@ clean:
 # Help
 # --------------------------------------------------
 help:
-	@echo "📦 {{ cookiecutter.project_name }} Makefile"
+	@echo "📦 homelab Makefile"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make venv                   Create virtual environment"
@@ -184,6 +174,6 @@ help:
 	@echo "  make typecheck              Run Mypy type checking"
 	@echo "  make test                   Run Pytest suite"
 	@echo "  make docs                   Build Sphinx + Jekyll documentation"
-	@echo "  make run                    Run {{ cookiecutter.package_name }}.py"
+	@echo "  make jekyll-serve           Serve Jekyll site locally"
 	@echo "  make clean                  Clean build artifacts"
 	@echo "  make all                    Run install, lint, typecheck, test, and docs"

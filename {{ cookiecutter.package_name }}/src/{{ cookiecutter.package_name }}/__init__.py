@@ -1,4 +1,3 @@
-# coding: utf-8
 """{{ cookiecutter.project_name }} Package
 
 © All rights reserved. {{ cookiecutter.author }}

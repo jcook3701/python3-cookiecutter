@@ -1,44 +1,55 @@
 # pyproject.toml
 # =========================================
-# Project: {{ cookiecutter.project_name }}
+# Project: python3-cookiecutter
 # =========================================
 
 [build-system]
-requires = ["setuptools>=64", "wheel"]
+requires = ["setuptools>=65.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "{{ cookiecutter.package_name }}"
-version = "{{ cookiecutter.version }}"
-description = "{{ cookiecutter.description }}"
+name = "python3-cookiecuter"
+version = "0.1.0"
+description = "Python3 cookiecutter template + integration with (github-docs-cookiecutter) Github docs template generation."
 authors = [
-  { name = "{{ cookiecutter.author }}", email = "{{ cookiecutter.email }}" }
+    { name="Jared Cook", email="jcook3701+github@gmail.com" }
 ]
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-requires-python = {{ cookiecutter.config.requires_python|tojson }}
+requires-python = ">=3.11"
 dependencies = []
-keywords = {{ cookiecutter.config.keywords|tojson }}
-classifiers = {{ cookiecutter.config.classifiers|tojson }}
+keywords = [
+  "python",
+  "python3",
+  "cookiecuter",
+  "automation"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
 
 [tool.setuptools.packages.find]
-where = ["src"]
+include = [
+  "hooks",
+  "tests"
+]
 
 [project.urls]
-Homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter }}"
-Repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter }}"
-Documentation = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter }}/docs/jekyll"
+Homepage = "https://github.com/jcook3701/python3-cookiecuter"
+Repository = "https://github.com/jcook3701/python3-cookiecuter"
+Documentation = "https://github.com/jcook3701/python3-cookiecuter/docs/jekyll"
 
 [project.optional-dependencies]
 dev = [
   "ruff>=0.14.0",
   "mypy==1.9",
   "pytest>=8.0",
+  "pytest-cookies>=0.7",
   "yamllint>=1.0",
   "jinja2-cli>=0.8",
 ]
-
 docs = [
   "sphinx>=8.0",
   "sphinx-rtd-theme>=3.0",
@@ -51,7 +62,10 @@ docs = [
 target-version = "py311"
 
 # Directories to lint and format
-src = ["src", "tests"]
+src = [
+  "hooks",
+  "tests"
+]
 
 # Exclude these paths
 exclude = [
@@ -69,7 +83,7 @@ exclude = [
 line-length = 120
 
 [tool.ruff.lint]
-fixable = ["ALL"]
+
 # Enable linting rules
 select = [
   "W",  # PyCodeStyle warnings
@@ -94,7 +108,7 @@ ignore = [
 # ====================================
 [tool.ruff.lint.isort]
 combine-as-imports = true
-known-first-party = ["{{ cookiecutter.package_name }}"]
+known-first-party = ["python3-cookiecuter"]
 
 # ====================================
 # Formatter configuration
@@ -106,27 +120,13 @@ indent-style = "space"
 line-ending = "lf"
 skip-magic-trailing-comma = false
 
-# ====================================
-# Mypy (type checker) Configuration
-# ====================================
 [tool.mypy]
 python_version = 3.11
-mypy_path = "src"
-strict = true
-warn_unused_ignores = true
+warn_unused_configs = true
 disallow_untyped_defs = true
 ignore_missing_imports = true
 
-# ====================================
-# Pytest configuration
-# ====================================
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = ["-v", "--maxfail=1", "--disable-warnings", "--strict-markers"]
+addopts = "--strict-markers"
 testpaths = ["tests"]
-
-# ====================================
-# Optional entry point (lets you run with `python -m {{ cookiecutter.package_name }}`)
-# ====================================
-[project.scripts]
-{{ cookiecutter.package_name }} = "{{ cookiecutter.package_name }}.__main__:main"
