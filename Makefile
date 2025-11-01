@@ -11,12 +11,12 @@ SHELL := /bin/bash
 # --------------------------------------------------
 # 📁 Build Directories
 # --------------------------------------------------
-SRC_DIR := '{{ cookiecutter.package_name }}'
+SRC_DIR := {{ cookiecutter.package_name }}
 HOOKS_DIR := hooks
 TESTS_DIR := tests
 DOCS_DIR := docs
-SPHINX_DIR := docs/sphinx
-JEKYLL_DIR := docs/jekyll
+SPHINX_DIR := $(DOCS_DIR)/sphinx
+JEKYLL_DIR := $(DOCS_DIR)/jekyll
 
 SPHINX_BUILD_DIR := $(SPHINX_DIR)/_build/html
 JEKYLL_OUTPUT_DIR := $(JEKYLL_DIR)/sphinx
@@ -44,7 +44,7 @@ MYPY := $(ACTIVATE) && $(PYTHON) -m mypy
 # --------------------------------------------------
 # 🔍 Linting (ruff, yaml, jinja2)
 # --------------------------------------------------
-RUFF := $(ACTIVATE) && $(PYTHON) -m ruff -v
+RUFF := $(ACTIVATE) && $(PYTHON) -m ruff
 YAMLLINT := $(ACTIVATE) && $(PYTHON) -m yamllint
 JINJA := $(ACTIVATE) && jinja2 --strict
 # --------------------------------------------------
@@ -93,17 +93,18 @@ ruff-lint-check:
 
 ruff-lint-fix:
 	@echo "🎨 Running ruff lint fixes..."
-	$(RUFF) check --fix --show-files $(HOOKS_DIR) $(TESTS_DIR)
+	$(RUFF) check --show-files $(HOOKS_DIR) $(TESTS_DIR)
+	$(RUFF) check --fix $(HOOKS_DIR) $(TESTS_DIR)
 
 yaml-lint-check:
 	@echo "🔍 Running yamllint..."
 	$(YAMLLINT) .
 
 jinja2-lint-check:
-	@echo "🔍 jinja2 linting all template files under {{ cookiecutter.package_name }}..."
+	@echo "🔍 jinja2 linting all template files under $(SRC_DIR)..."
 	jq '{cookiecutter: .}' cookiecutter.json > /tmp/_cc_wrapped.json
-	find '{{ cookiecutter.package_name }}' -type f \
-		! -path "{{ cookiecutter.package_name }}/.github/*" \
+	find '$(SRC_DIR)' -type f \
+		! -path "$(SRC_DIR)/.github/*" \
 		! -name "*.png" \
 		! -name "*.jpg" \
 		! -name "*.ico" \
@@ -122,7 +123,7 @@ lint-check: ruff-lint-check yaml-lint-check jinja2-lint-check
 # --------------------------------------------------
 typecheck:
 	@echo "🧠 Checking types (MyPy)..."
-	$(MYPY) $(HOOKS_DIR)
+	$(MYPY) $(HOOKS_DIR) $(TESTS_DIR)
 
 # --------------------------------------------------
 # Testing (pytest)
@@ -138,7 +139,7 @@ docs:
 	@echo "🔨 Building Sphinx documentation 📘 as Markdown..."
 	$(SPHINX) $(SPHINX_DIR) $(JEKYLL_OUTPUT_DIR)
 	@echo "✅ Sphinx Markdown build complete!"
-	@echo "🧱 Building Jekyll site..."
+	@echo "🔨 Building Jekyll site..."
 	cd $(JEKYLL_DIR) && $(JEKYLL_BUILD)
 	@echo "✅ Full documentation build complete!"
 
@@ -162,7 +163,7 @@ clean:
 # Help
 # --------------------------------------------------
 help:
-	@echo "📦 homelab Makefile"
+	@echo "📦 python3-cookiecutter Makefile"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make venv                   Create virtual environment"

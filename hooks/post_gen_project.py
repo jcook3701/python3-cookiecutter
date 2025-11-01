@@ -14,7 +14,7 @@ import shutil
 from cookiecutter.main import cookiecutter
 
 
-def main():
+def main() -> None:
    # Detect CI (e.g. GitHub Actions, GitLab CI, etc.)
     if os.getenv("CI"):
         print("⚙️  Detected CI environment — skipping GitHub Docs generation.")
@@ -44,7 +44,7 @@ def main():
         "buymeacoffee_username": context.get("buymeacoffee_username"),
     }
 
-    print(f"📘 Generating GitHub Docs for {extra_ctx['project_name']}...")
+    print(f"🔨 Generating GitHub Docs 📘 for {extra_ctx['project_name']}...")
 
     # Pass cookiecutter variables to github-docs-cookiecutter
     try:
@@ -70,6 +70,6 @@ def main():
         print(f"⚠️  Skipping GitHub Docs generation: {e}")
 
     # TODO: Pass cookiecutter variables to sphinx-cookiecutter
-        
+
 if __name__ == "__main__":
     main()

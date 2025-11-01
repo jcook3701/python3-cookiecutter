@@ -90,13 +90,14 @@ install: venv
 # --------------------------------------------------
 # Linting (ruff, yaml, jinja2)
 # --------------------------------------------------
-ruff-lint-check: install
+ruff-lint-check:
 	@echo "🔍 Running ruff linting..."
 	$(RUFF) check $(SRC_DIR) $(TEST_DIR)
 
-ruff-lint-fix: install
+ruff-lint-fix:
 	@echo "🎨 Running ruff lint fixes..."
-	$(RUFF) check --fix --show-files $(SRC_DIR) $(TEST_DIR)
+	$(RUFF) check --show-files $(SRC_DIR) $(TEST_DIR)
+	$(RUFF) check --fix $(SRC_DIR) $(TEST_DIR)
 
 yaml-lint-check:
 	@echo "🔍 Running yamllint..."
@@ -125,7 +126,7 @@ lint-check: ruff-lint-check yaml-lint-check jinja2-lint-check
 # --------------------------------------------------
 typecheck:
 	@echo "🧠 Type checking with MyPy..."
-	$(MYPY) $(SRC_DIR)
+	$(MYPY) $(SRC_DIR) $(TESTS_DIR)
 
 # --------------------------------------------------
 # Testing (pytest)
