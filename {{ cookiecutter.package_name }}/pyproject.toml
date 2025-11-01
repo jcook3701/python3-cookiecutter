@@ -46,8 +46,10 @@ docs = [
   "sphinx-autodoc-typehints>=3.5",
 ]
 
+# ====================================
+# ruff (linter, formatter, import sorter)
+# ====================================
 [tool.ruff]
-# Target Python version
 target-version = "py311"
 
 # Directories to lint and format
@@ -76,6 +78,7 @@ select = [
   "E",  # pycodestyle errors
   "F",  # pyflakes
   "I",  # isort (import sorting)
+  "N",  # pep8-naming 
   "UP", # pyupgrade
   "B",  # flake8-bugbear
   "A",  # flake8-builtins

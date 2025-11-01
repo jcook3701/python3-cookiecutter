@@ -4,13 +4,14 @@
 # =========================================
 
 # --------------------------------------------------
-# Environment Settings
+# ⚙️ Environment Settings
 # --------------------------------------------------
 SHELL := /bin/bash
 .SHELLFLAGS := -O globstar -c
 # --------------------------------------------------
-# Build Directories
+# 📁 Build Directories
 # --------------------------------------------------
+SRC_DIR := '{{ cookiecutter.package_name }}'
 HOOKS_DIR := hooks
 TESTS_DIR := tests
 DOCS_DIR := docs
@@ -20,43 +21,40 @@ JEKYLL_DIR := docs/jekyll
 SPHINX_BUILD_DIR := $(SPHINX_DIR)/_build/html
 JEKYLL_OUTPUT_DIR := $(JEKYLL_DIR)/sphinx
 # --------------------------------------------------
-# Python / Virtual Environment
+# 🐍 Python / Virtual Environment
 # --------------------------------------------------
 PYTHON := python3.11
 VENV_DIR := .venv
 # --------------------------------------------------
-# Python Dependencies
+# 🐍 Python Dependencies
 # --------------------------------------------------
 DEPS := .
 DEV_DEPS := .[dev]
 DEV_DOCS := .[docs]
 # --------------------------------------------------
-# Python Commands
+# 🐍 Python Commands (venv, activate, pip)
 # --------------------------------------------------
 CREATE_VENV := $(PYTHON) -m venv $(VENV_DIR)
 ACTIVATE := source $(VENV_DIR)/bin/activate
 PIP := $(ACTIVATE) && $(PYTHON) -m pip
 # --------------------------------------------------
-# Typing
+# 🧠 Typing (mypy)
 # --------------------------------------------------
 MYPY := $(ACTIVATE) && $(PYTHON) -m mypy
 # --------------------------------------------------
-# Linting
+# 🔍 Linting (ruff, yaml, jinja2)
 # --------------------------------------------------
 RUFF := $(ACTIVATE) && $(PYTHON) -m ruff -v
 YAMLLINT := $(ACTIVATE) && $(PYTHON) -m yamllint
 JINJA := $(ACTIVATE) && jinja2 --strict
 # --------------------------------------------------
-# Testing
+# 🧪 Testing (pytest)
 # --------------------------------------------------
 PYTEST := $(ACTIVATE) && $(PYTHON) -m pytest
 # --------------------------------------------------
-# Documentation
+# 📘 Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
 SPHINX := $(ACTIVATE) && $(PYTHON) -m sphinx -b markdown
-# --------------------------------------------------
-# Jekyll
-# --------------------------------------------------
 JEKYLL_BUILD := bundle exec jekyll build
 JEKYLL_CLEAN := bundle exec jekyll clean
 JEKYLL_SERVE := bundle exec jekyll serve
@@ -94,7 +92,7 @@ ruff-lint-check:
 	$(RUFF) check $(HOOKS_DIR) $(TESTS_DIR)
 
 ruff-lint-fix:
-	@echo "🔍 Running ruff lint fixes..."
+	@echo "🎨 Running ruff lint fixes..."
 	$(RUFF) check --fix --show-files $(HOOKS_DIR) $(TESTS_DIR)
 
 yaml-lint-check:
@@ -123,19 +121,21 @@ lint-check: ruff-lint-check yaml-lint-check jinja2-lint-check
 # Typechecking (MyPy)
 # --------------------------------------------------
 typecheck:
+	@echo "🧠 Checking types (MyPy)..."
 	$(MYPY) $(HOOKS_DIR)
 
 # --------------------------------------------------
 # Testing (pytest)
 # --------------------------------------------------
 test:
+	@echo "🧪 Running tests with pytest..."
 	$(PYTEST) -v --maxfail=1 --disable-warnings $(TESTS_DIR)
 
 # --------------------------------------------------
 # Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
 docs:
-	@echo "📘 Building Sphinx documentation as Markdown..."
+	@echo "🔨 Building Sphinx documentation 📘 as Markdown..."
 	$(SPHINX) $(SPHINX_DIR) $(JEKYLL_OUTPUT_DIR)
 	@echo "✅ Sphinx Markdown build complete!"
 	@echo "🧱 Building Jekyll site..."
@@ -150,6 +150,7 @@ jekyll-serve: docs
 # Clean artifacts
 # --------------------------------------------------
 clean:
+	@echo "🧹 Clening build artifacts..."
 	rm -rf $(SPHINX_DIR)/_build $(JEKYLL_OUTPUT_DIR)
 	cd $(JEKYLL_DIR) && $(JEKYLL_CLEAN)
 	rm -rf build dist *.egg-info

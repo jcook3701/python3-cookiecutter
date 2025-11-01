@@ -69,5 +69,7 @@ def main():
     except Exception as e:
         print(f"⚠️  Skipping GitHub Docs generation: {e}")
 
+    # TODO: Pass cookiecutter variables to sphinx-cookiecutter
+        
 if __name__ == "__main__":
     main()

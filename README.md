@@ -33,7 +33,7 @@ replace ```test-project``` or any of the other variables with real context confi
    * etc.  
 2. Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
 3. Update configuration file to include or disclude the Dockerfile (Only needed for webapps)
-4. Create seperate repo to utilze cookiecuter 1.7 with custom json config inorder to update pyproject.toml variables in 'config' variable.  
+4. Create seperate repo to utilze cookiecutter 1.7 with custom json config inorder to update pyproject.toml variables in 'config' variable.  
 
 
 ### Authors Notes:  
