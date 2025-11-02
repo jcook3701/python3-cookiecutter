@@ -1,4 +1,4 @@
-# Project Lint with ruff
+# ruff lint
 ---
 name: Cookiecutter ruff Lint
 
@@ -9,7 +9,7 @@ on:
     branches: [main, develop]
 
 jobs:
-  lint:
+  ruff-lint:
     runs-on: ubuntu-latest
 
     steps:

@@ -8,7 +8,7 @@ requires = ["setuptools>=65.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "python3-cookiecuter"
+name = "python3-cookiecutter"
 version = "0.1.0"
 description = "Python3 cookiecutter template + integration with (github-docs-cookiecutter) Github docs template generation."
 authors = [
@@ -22,7 +22,7 @@ dependencies = []
 keywords = [
   "python",
   "python3",
-  "cookiecuter",
+  "cookiecutter",
   "automation"
 ]
 classifiers = [
@@ -37,9 +37,9 @@ include = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/jcook3701/python3-cookiecuter"
-Repository = "https://github.com/jcook3701/python3-cookiecuter"
-Documentation = "https://github.com/jcook3701/python3-cookiecuter/docs/jekyll"
+Homepage = "https://github.com/jcook3701/python3-cookiecutter"
+Repository = "https://github.com/jcook3701/python3-cookiecutter"
+Documentation = "https://github.com/jcook3701/python3-cookiecutter/docs/jekyll"
 
 [project.optional-dependencies]
 dev = [
@@ -108,7 +108,7 @@ ignore = [
 # ====================================
 [tool.ruff.lint.isort]
 combine-as-imports = true
-known-first-party = ["python3-cookiecuter"]
+known-first-party = ["python3-cookiecutter"]
 
 # ====================================
 # Formatter configuration
@@ -120,12 +120,18 @@ indent-style = "space"
 line-ending = "lf"
 skip-magic-trailing-comma = false
 
+# ====================================
+# Mypy (type checker) Configuration
+# ====================================
 [tool.mypy]
 python_version = 3.11
 warn_unused_configs = true
 disallow_untyped_defs = true
 ignore_missing_imports = true
 
+# ====================================
+# Pytest configuration
+# ====================================
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "--strict-markers"

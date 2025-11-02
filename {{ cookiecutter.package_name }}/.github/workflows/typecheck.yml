@@ -1,15 +1,15 @@
-# tests
+# typecheck
 ---
-name: Cookiecutter tests
+name: Typecheck
 
 on:
   push:
-    branches: [master, develop]
+    branches: [main, develop]
   pull_request:
-    branches: [master, develop]
+    branches: [main, develop]
 
 jobs:
-  test:
+  typecheck:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +21,10 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install pytest
+      - name: Install mypy
         run: |
           make install
 
-      - name: Run tests
+      - name: Run typecheck
         run: |
-          make test
+          make typecheck

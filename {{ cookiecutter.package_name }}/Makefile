@@ -50,19 +50,17 @@ JINJA := $(ACTIVATE) && jinja2 --strict
 # --------------------------------------------------
 PYTEST := $(ACTIVATE) && $(PYTHON) -m pytest
 # --------------------------------------------------
-# Documentation
+# Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
 SPHINX := $(ACTIVATE) && $(PYTHON) -m sphinx -b markdown
-# --------------------------------------------------
-# {{ cookiecutter.package_name }} Command
-# --------------------------------------------------
-{{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
-# --------------------------------------------------
-# Jekyll
-# --------------------------------------------------
 JEKYLL_BUILD := bundle exec jekyll build
 JEKYLL_CLEAN := bundle exec jekyll clean
 JEKYLL_SERVE := bundle exec jekyll serve
+
+# --------------------------------------------------
+# {{ cookiecutter.package_name }} command
+# --------------------------------------------------
+{{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
 
 # -------------------------------------------------------------------
 .PHONY: all venv install ruff-lint-check ruff-lint-fix yaml-lint-check \
@@ -77,7 +75,7 @@ all: install lint-check typecheck test docs
 # Virtual Environment Setup
 # --------------------------------------------------
 venv:
-	@echo "Creating virtual environment..."
+	@echo "🔨️ Creating virtual environment..."
 	$(CREATE_VENV)
 	@echo "✅ Virtual environment created."
 
@@ -92,13 +90,14 @@ install: venv
 # --------------------------------------------------
 # Linting (ruff, yaml, jinja2)
 # --------------------------------------------------
-ruff-lint-check: install
+ruff-lint-check:
 	@echo "🔍 Running ruff linting..."
 	$(RUFF) check $(SRC_DIR) $(TEST_DIR)
 
-ruff-lint-fix: install
-	@echo "🔍 Running ruff lint fixes..."
-	$(RUFF) check --fix --show-files $(SRC_DIR) $(TEST_DIR)
+ruff-lint-fix:
+	@echo "🎨 Running ruff lint fixes..."
+	$(RUFF) check --show-files $(SRC_DIR) $(TEST_DIR)
+	$(RUFF) check --fix $(SRC_DIR) $(TEST_DIR)
 
 yaml-lint-check:
 	@echo "🔍 Running yamllint..."
@@ -126,22 +125,24 @@ lint-check: ruff-lint-check yaml-lint-check jinja2-lint-check
 # Typechecking (MyPy)
 # --------------------------------------------------
 typecheck:
-	$(MYPY) $(SRC_DIR)
+	@echo "🧠 Type checking with MyPy..."
+	$(MYPY) $(SRC_DIR) $(TESTS_DIR)
 
 # --------------------------------------------------
 # Testing (pytest)
 # --------------------------------------------------
 test:
+	@echo "🧪 Running tests with pytest..."
 	$(PYTEST) -v --maxfail=1 --disable-warnings $(TEST_DIR)
 
 # --------------------------------------------------
 # Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
 docs:
-	@echo "📘 Building Sphinx documentation as Markdown..."
+	@echo "🔨 Building Sphinx documentation as Markdown..."
 	$(SPHINX) $(SPHINX_DIR) $(JEKYLL_OUTPUT_DIR)
 	@echo "✅ Sphinx Markdown build complete!"
-	@echo "🧱 Building Jekyll site..."
+	@echo "🔨 Building Jekyll site..."
 	cd $(JEKYLL_DIR) && $(JEKYLL_BUILD)
 	@echo "✅ Full documentation build complete!"
 
@@ -151,15 +152,17 @@ jekyll-serve: docs
 
 
 # --------------------------------------------------
-# Run {{ cookiecutter.package_name }} Python3 Program
+# Run {{ cookiecutter.package_name }} program
 # --------------------------------------------------
 run:
+	@echo "⚙️ running {{ cookiecutter.package_name }}..."
 	$({{ cookiecutter.package_name|upper }})
 
 # --------------------------------------------------
 # Clean artifacts
 # --------------------------------------------------
 clean:
+	@echo "🧹 Clening build artifacts..."
 	rm -rf $(SPHINX_DIR)/_build $(JEKYLL_OUTPUT_DIR)
 	cd $(JEKYLL_DIR) && $(JEKYLL_CLEAN)
 	rm -rf build dist *.egg-info

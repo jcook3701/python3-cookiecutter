@@ -4,7 +4,7 @@ __Author:__ Jared Cook
 __Version:__ 0.1.0  
 
 ## Overview
-Python3 cookiecutter template project + Github docs template generation.  
+Python3 cookiecutter template project + Github docs template generation + Sphinx docs template generation.  
 
 __Note:__ Unless you are using a newer version of cookiecutter >= 2, ```--no-input``` is necessary for template generation without error.  
 
@@ -33,7 +33,7 @@ replace ```test-project``` or any of the other variables with real context confi
    * etc.  
 2. Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
 3. Update configuration file to include or disclude the Dockerfile (Only needed for webapps)
-4. Create seperate repo to utilze cookiecuter 1.7 with custom json config inorder to update pyproject.toml variables in 'config' variable.  
+4. Create seperate repo to utilze cookiecutter 1.7 with custom json config inorder to update pyproject.toml variables in 'config' variable.  
 
 
 ### Authors Notes:  
