@@ -1,3 +1,4 @@
+# pytests tests
 ---
 name: Cookiecutter Tests
 
@@ -20,7 +21,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install pytest
         run: |
           make install
 

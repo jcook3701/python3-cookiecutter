@@ -4,7 +4,7 @@ __Author:__ Jared Cook
 __Version:__ 0.1.0  
 
 ## Overview
-Python3 cookiecutter template project + Github docs template generation.  
+Python3 cookiecutter template project + Github docs template generation + Sphinx docs template generation.  
 
 __Note:__ Unless you are using a newer version of cookiecutter >= 2, ```--no-input``` is necessary for template generation without error.  
 
