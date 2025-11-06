@@ -4,12 +4,12 @@
 # =========================================
 
 # --------------------------------------------------
-# Environment Settings
+# ⚙️ Environment Settings
 # --------------------------------------------------
 SHELL := /bin/bash
 .SHELLFLAGS := -O globstar -c
 # --------------------------------------------------
-# Build Directories
+# 📁 Build Directories
 # --------------------------------------------------
 SRC_DIR := src
 TEST_DIR := tests
@@ -19,38 +19,38 @@ JEKYLL_DIR = docs/jekyll
 SPHINX_BUILD_DIR = $(SPHINX_DIR)/_build/html
 JEKYLL_OUTPUT_DIR = $(JEKYLL_DIR)/sphinx
 # --------------------------------------------------
-# Python / Virtual Environment
+# 🐍 Python / Virtual Environment
 # --------------------------------------------------
 PYTHON := python3
 VENV_DIR = .venv
 # --------------------------------------------------
-# Python Dependencies
+# 🐍 Python Dependencies
 # --------------------------------------------------
 DEPS := .
 DEV_DEPS := .[dev]
 DEV_DOCS := .[docs]
 # --------------------------------------------------
-# Python Commands
+# 🐍 Python Commands
 # --------------------------------------------------
 CREATE_VENV := $(PYTHON) -m venv $(VENV_DIR)
 ACTIVATE = source $(VENV_DIR)/bin/activate
 PIP := $(ACTIVATE) && $(PYTHON) -m pip
 # --------------------------------------------------
-# Typing
+# 🧠 Typing (mypy)
 # --------------------------------------------------
 MYPY := $(ACTIVATE) && $(PYTHON) -m mypy
 # --------------------------------------------------
-# Linting
+# 🔍 Linting (ruff, yaml)
 # --------------------------------------------------
 RUFF := $(ACTIVATE) && $(PYTHON) -m ruff
 YAMLLINT := $(ACTIVATE) && $(PYTHON) -m yamllint
 JINJA := $(ACTIVATE) && jinja2 --strict
 # --------------------------------------------------
-# Testing
+# 🧪 Testing (pytest)
 # --------------------------------------------------
 PYTEST := $(ACTIVATE) && $(PYTHON) -m pytest
 # --------------------------------------------------
-# Documentation (Sphinx + Jekyll)
+# 📘 Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
 SPHINX := $(ACTIVATE) && $(PYTHON) -m sphinx -b markdown
 JEKYLL_BUILD := bundle exec jekyll build
@@ -58,7 +58,7 @@ JEKYLL_CLEAN := bundle exec jekyll clean
 JEKYLL_SERVE := bundle exec jekyll serve
 
 # --------------------------------------------------
-# {{ cookiecutter.package_name }} command
+# 🏃‍♂️ {{ cookiecutter.package_name }} command
 # --------------------------------------------------
 {{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
 
@@ -139,12 +139,12 @@ test:
 # Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
 docs:
-	@echo "🔨 Building Sphinx documentation as Markdown..."
+	@echo "🔨 Building Sphinx documentation 📘 as Markdown..."
 	$(SPHINX) $(SPHINX_DIR) $(JEKYLL_OUTPUT_DIR)
 	@echo "✅ Sphinx Markdown build complete!"
 	@echo "🔨 Building Jekyll site..."
 	cd $(JEKYLL_DIR) && $(JEKYLL_BUILD)
-	@echo "✅ Full documentation build complete!"
+	@echo "✅ Full documentation 📘 build complete!"
 
 jekyll-serve: docs
 	@echo "🚀 Starting Jekyll development server..."
@@ -155,7 +155,7 @@ jekyll-serve: docs
 # Run {{ cookiecutter.package_name }} program
 # --------------------------------------------------
 run:
-	@echo "⚙️ running {{ cookiecutter.package_name }}..."
+	@echo "🏃‍♂️ running {{ cookiecutter.package_name }}..."
 	$({{ cookiecutter.package_name|upper }})
 
 # --------------------------------------------------
