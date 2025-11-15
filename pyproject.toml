@@ -2,7 +2,6 @@
 # =========================================
 # Project: python3-cookiecutter
 # =========================================
-
 [build-system]
 requires = ["setuptools>=65.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
@@ -14,7 +13,7 @@ description = "Python3 cookiecutter template + integration with (github-docs-coo
 authors = [
     { name="Jared Cook", email="jcook3701+github@gmail.com" }
 ]
-readme = "README.md"
+readme = "./README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.11"
@@ -23,17 +22,11 @@ keywords = [
   "python",
   "python3",
   "cookiecutter",
-  "automation"
+  "automation",
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Operating System :: OS Independent",
-]
-
-[tool.setuptools.packages.find]
-include = [
-  "hooks",
-  "tests"
 ]
 
 [project.urls]
@@ -49,6 +42,7 @@ dev = [
   "pytest-cookies>=0.7",
   "yamllint>=1.0",
   "jinja2-cli>=0.8",
+  "myst-parser>=0.18",
 ]
 docs = [
   "sphinx>=8.0",
@@ -56,17 +50,28 @@ docs = [
   "sphinx-markdown-builder>=0.6",
   "sphinx-autodoc-typehints>=3.5",
 ]
-
+# ====================================
+# Setuptools Configuration:
+# ====================================
+[tool.setuptools.packages.find]
+where = [
+  "hooks",
+]
+include = [
+  "hooks",
+  "tests",
+]
+# ====================================
+# Ruff Configuration: (linter, formatter, import sorter)
+# ====================================
 [tool.ruff]
 # Target Python version
 target-version = "py311"
-
 # Directories to lint and format
 src = [
   "hooks",
-  "tests"
+  "tests",
 ]
-
 # Exclude these paths
 exclude = [
   ".venv",
@@ -78,38 +83,40 @@ exclude = [
   ".git",
   ".github",
 ]
-
 # Maximum line length
 line-length = 120
-
+# ====================================
+# Ruff Lint Configuration:
+# ====================================
 [tool.ruff.lint]
-
 # Enable linting rules
 select = [
   "W",  # PyCodeStyle warnings
   "E",  # pycodestyle errors
   "F",  # pyflakes
   "I",  # isort (import sorting)
+  "N",  # pep8-naming
   "UP", # pyupgrade
   "B",  # flake8-bugbear
   "A",  # flake8-builtins
+  "C4", # comprehensions
+  "TID", # tidy imports
+  "FA", # future annotations
   "PL", # pylint-style checks
+  "RUF", # ruff-specific
 ]
-
 # Ignore specific rules
 ignore = [
   "E501",  # line too long (handled by formatter)
   "PLR2004",  # magic value comparison
   "B008",  # function call in default argument
 ]
-
 # ====================================
 # Import sorting (Python helper scripts)
 # ====================================
 [tool.ruff.lint.isort]
 combine-as-imports = true
 known-first-party = ["python3-cookiecutter"]
-
 # ====================================
 # Formatter configuration
 # Ruff also formats YAML, TOML, and Markdown
@@ -119,20 +126,22 @@ quote-style = "double"
 indent-style = "space"
 line-ending = "lf"
 skip-magic-trailing-comma = false
-
+docstring-code-format = true
 # ====================================
 # Mypy (type checker) Configuration
 # ====================================
 [tool.mypy]
 python_version = 3.11
+strict = true
+warn_unused_ignores = true
 warn_unused_configs = true
 disallow_untyped_defs = true
 ignore_missing_imports = true
-
 # ====================================
 # Pytest configuration
 # ====================================
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "--strict-markers"
+addopts = ["-v", "--maxfail=1", "--disable-warnings", "--strict-markers"]
 testpaths = ["tests"]
+pythonpath = ["hooks"]
