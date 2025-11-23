@@ -36,6 +36,7 @@ Documentation = "https://github.com/jcook3701/python3-cookiecutter/docs/jekyll"
 
 [project.optional-dependencies]
 dev = [
+  "black>=25.11",
   "ruff>=0.14.0",
   "mypy==1.9",
   "pytest>=8.0",
@@ -43,6 +44,7 @@ dev = [
   "yamllint>=1.0",
   "jinja2-cli>=0.8",
   "myst-parser>=0.18",
+  "typer>=0.20",
 ]
 docs = [
   "sphinx>=8.0",
@@ -58,11 +60,10 @@ where = [
   "hooks",
 ]
 include = [
-  "hooks",
-  "tests",
+  "hooks*",
 ]
 # ====================================
-# Ruff Configuration: (linter, formatter, import sorter)
+# Ruff Configuration:
 # ====================================
 [tool.ruff]
 # Target Python version
@@ -128,6 +129,27 @@ line-ending = "lf"
 skip-magic-trailing-comma = false
 docstring-code-format = true
 # ====================================
+# Black Configuration: (Formatting)
+# ====================================
+[tool.black]
+line-length = 88          # Maximum line length (default is 88)
+target-version = ["py310"] # Target Python version(s)
+skip-string-normalization = false  # Whether to skip normalizing string quotes
+include = '\.pyi?$'       # Which files to include (regex)
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+# ====================================
 # Mypy (type checker) Configuration
 # ====================================
 [tool.mypy]
@@ -142,6 +164,6 @@ ignore_missing_imports = true
 # ====================================
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = ["-v", "--maxfail=1", "--disable-warnings", "--strict-markers"]
+addopts = ["-v", "--maxfail=1", "-W always", "-rw", "--strict-markers"]
 testpaths = ["tests"]
 pythonpath = ["hooks"]

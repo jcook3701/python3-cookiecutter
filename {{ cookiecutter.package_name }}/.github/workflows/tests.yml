@@ -1,15 +1,15 @@
-# tests
+# pytests tests
 ---
-name: Cookiecutter tests
+name: Python3 Tests
 
 on:
   push:
-    branches: [master, develop]
+    branches: [main, develop]
   pull_request:
-    branches: [master, develop]
+    branches: [main, develop]
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
 
     steps:

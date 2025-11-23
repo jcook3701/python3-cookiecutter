@@ -10,11 +10,12 @@ Author: Jared Cook
 import json
 import os
 import shutil
+from typing import Any
 
 from cookiecutter.main import cookiecutter
 
 
-def generate_docs_templates(context: dict) -> None:
+def generate_docs_templates(context: dict[str, Any]) -> None:
     """Generate one or more documentation templates inside docs/"""
     project_dir = os.getcwd()
     docs_dir = os.path.join(project_dir, "docs")
@@ -52,8 +53,8 @@ def generate_docs_templates(context: dict) -> None:
             "target": os.path.join(docs_dir, "sphinx"),
             "extra_ctx": {
                 **base_ctx,
-            }
-        }
+            },
+        },
     }
 
     for _key, cfg in templates.items():
@@ -108,7 +109,7 @@ def generate_docs_templates(context: dict) -> None:
 
 
 def main() -> None:
-   # Detect CI (e.g. GitHub Actions, GitLab CI, etc.)
+    # Detect CI (e.g. GitHub Actions, GitLab CI, etc.)
     if os.getenv("CI"):
         print("⚙️  Detected CI environment — skipping GitHub Docs generation.")
         return

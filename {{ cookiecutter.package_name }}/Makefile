@@ -19,21 +19,42 @@ ifeq ($(V),0)
 else
     AT =
 endif
+
+# Detect if we are running inside GitHub Actions CI.
+# GitHub sets the environment variable GITHUB_ACTIONS=true in workflows.
+# We set CI=1 if running in GitHub Actions, otherwise CI=0 for local runs.
+ifeq ($(GITHUB_ACTIONS),true)
+CI := 1
+else
+CI := 0
+endif
+
+# Define a reusable CI-safe runner
+define run_ci_safe =
+( $1 || [ "$(CI)" != "1" ] )
+endef
+# --------------------------------------------------
+# ⚙️ Build Settings
+# --------------------------------------------------
+PACKAGE_NAME := {{ cookiecutter.package_name }}
+PACKAGE_AUTHOR := "{{ cookiecutter.author }}"
+PACKAGE_VERSION := {{ cookiecutter.version }}
 # --------------------------------------------------
 # 📁 Build Directories
 # --------------------------------------------------
-SRC_DIR := src
-TEST_DIR := tests
-SPHINX_DIR = docs/sphinx
-JEKYLL_DIR = docs/jekyll
+SRC_DIR := ./src
+TEST_DIR := ./tests
+DOCS_DIR := ./docs
+SPHINX_DIR := $(DOCS_DIR)/sphinx
+JEKYLL_DIR := $(DOCS_DIR)/jekyll
 
-SPHINX_BUILD_DIR = $(SPHINX_DIR)/_build/html
-JEKYLL_OUTPUT_DIR = $(JEKYLL_DIR)/sphinx
+SPHINX_BUILD_DIR := $(SPHINX_DIR)/_build/html
+JEKYLL_OUTPUT_DIR := $(JEKYLL_DIR)/sphinx
 # --------------------------------------------------
 # 🐍 Python / Virtual Environment
 # --------------------------------------------------
-PYTHON := python3
-VENV_DIR = .venv
+PYTHON_CMD := python3.11
+VENV_DIR := .venv
 # --------------------------------------------------
 # 🐍 Python Dependencies
 # --------------------------------------------------
@@ -43,41 +64,46 @@ DEV_DOCS := .[docs]
 # --------------------------------------------------
 # 🐍 Python Commands
 # --------------------------------------------------
-CREATE_VENV := $(PYTHON) -m venv $(VENV_DIR)
+CREATE_VENV := $(PYTHON_CMD) -m venv $(VENV_DIR)
 ACTIVATE = source $(VENV_DIR)/bin/activate
-PIP := $(ACTIVATE) && $(PYTHON) -m pip
+PYTHON := $(ACTIVATE) && $(PYTHON_CMD)
+PIP := $(PYTHON) -m pip
 # --------------------------------------------------
 # 🧠 Typing (mypy)
 # --------------------------------------------------
-MYPY := $(ACTIVATE) && $(PYTHON) -m mypy
+MYPY := $(PYTHON) -m mypy
 # --------------------------------------------------
 # 🔍 Linting (ruff, yaml)
 # --------------------------------------------------
-RUFF := $(ACTIVATE) && $(PYTHON) -m ruff
-YAMLLINT := $(ACTIVATE) && $(PYTHON) -m yamllint
-JINJA := $(ACTIVATE) && jinja2 --strict
+RUFF := $(PYTHON) -m ruff
+YAMLLINT := $(PYTHON) -m yamllint
+# --------------------------------------------------
+# 🎨 Formatting (black)
+# --------------------------------------------------
+BLACK := $(PYTHON) -m black
 # --------------------------------------------------
 # 🧪 Testing (pytest)
 # --------------------------------------------------
-PYTEST := $(ACTIVATE) && $(PYTHON) -m pytest
+PYTEST := $(PYTHON) -m pytest
 # --------------------------------------------------
 # 📘 Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
-SPHINX := $(ACTIVATE) && $(PYTHON) -m sphinx -b markdown
-JEKYLL_BUILD := bundle exec jekyll build
+SPHINX := $(PYTHON) -m sphinx -b markdown
+JEKYLL_BUILD := bundle exec jekyll build --quiet
 JEKYLL_CLEAN := bundle exec jekyll clean
 JEKYLL_SERVE := bundle exec jekyll serve
 # --------------------------------------------------
 # 🏃‍♂️ {{ cookiecutter.package_name }} command
 # --------------------------------------------------
-{{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
+{{ cookiecutter.package_name|upper }} := $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
 # -------------------------------------------------------------------
-.PHONY: all venv install ruff-lint-check ruff-lint-fix yaml-lint-check \
-	jinja2-lint-check lint-check typecheck test docs jekyll-serve clean help
+.PHONY: all venv install black-formatter-check black-formatter-fix format-check format-fix \
+	ruff-lint-check ruff-lint-fix yaml-lint-check lint-check lint-fix \
+	typecheck test sphinx jekyll jekyll-serve readme build-docs run-docs clean help
 # --------------------------------------------------
-# Default: run lint, typecheck, tests, and docs
+# Default: run lint, typecheck, tests, and build-docs
 # --------------------------------------------------
-all: install lint-check typecheck test docs
+all: install lint-check typecheck test build-docs
 # --------------------------------------------------
 # Virtual Environment Setup
 # --------------------------------------------------
@@ -94,13 +120,22 @@ install: venv
 	$(AT)$(PIP) install -e $(DEV_DOCS)
 	$(AT)echo "✅ Dependencies installed."
 # --------------------------------------------------
-# Formating (ruff)
+# Formating (black)
 # --------------------------------------------------
-ruff-formatter:
-	$(AT)echo "🎨 Running ruff formatter..."
-	$(AT)$(RUFF) format $(SRC_DIR) $(TEST_DIR)
+black-formatter-check:
+	$(AT)echo "🔍 Running black formatter style check..."
+	$(AT)$(call run_ci_safe, $(BLACK) --check $(SRC_DIR) $(TESTS_DIR))
+	$(AT)echo "✅ Finished formatting check of Python code with Black!"
+	
+black-formatter-fix:
+	$(AT)echo "🎨 Running black formatter fixes..."
+	$(AT)$(BLACK) $(SRC_DIR) $(TESTS_DIR)
+	$(AT)echo "✅ Finished formatting Python code with Black!"
+
+format-check: black-formatter-check
+format-fix: black-formatter-fix
 # --------------------------------------------------
-# Linting (ruff, yaml, jinja2)
+# Linting (ruff, yaml)
 # --------------------------------------------------
 ruff-lint-check:
 	$(AT)echo "🔍 Running ruff linting..."
@@ -115,35 +150,22 @@ yaml-lint-check:
 	$(AT)echo "🔍 Running yamllint..."
 	$(AT)$(YAMLLINT) .
 
-jinja2-lint-check:
-	$(AT)echo "🔍 jinja2 linting all template files under {{ cookiecutter.package_name }}..."
-	$(AT)jq '{cookiecutter: .}' cookiecutter.json > /tmp/_cc_wrapped.json
-	$(AT)find '{{ cookiecutter.package_name }}' -type f \
-		! -path "{{ cookiecutter.package_name }}/.github/*" \
-		! -name "*.png" \
-		! -name "*.jpg" \
-		! -name "*.ico" \
-		! -name "*.gif" \
-		-print0 | while IFS= read -r -d '' f; do \
-			if file "$$f" | grep -q text; then \
-				echo "Checking $$f"; \
-				$(JINJA) "$$f" /tmp/_cc_wrapped.json || exit 1; \
-			fi; \
-		done
-
-lint-check: ruff-lint-check yaml-lint-check jinja2-lint-check
+lint-check: ruff-lint-check yaml-lint-check
+lint-fix: ruff-lint-fix
 # --------------------------------------------------
 # Typechecking (MyPy)
 # --------------------------------------------------
 typecheck:
 	$(AT)echo "🧠 Type checking with MyPy..."
-	$(AT)$(MYPY) $(SRC_DIR) $(TESTS_DIR)
+	$(AT)$(call run_ci_safe, $(MYPY) $(SRC_DIR) $(TESTS_DIR))
+	$(AT)echo "✅ Python typecheck complete!"
 # --------------------------------------------------
 # Testing (pytest)
 # --------------------------------------------------
 test:
 	$(AT)echo "🧪 Running tests with pytest..."
-	$(AT)$(PYTEST) -v --maxfail=1 --disable-warnings $(TEST_DIR)
+	$(AT)$(call run_ci_safe, $(PYTEST) $(TEST_DIR))
+	$(AT)echo "✅ Python tests complete!"
 # --------------------------------------------------
 # Documentation (Sphinx + Jekyll)
 # --------------------------------------------------
@@ -151,6 +173,7 @@ sphinx:
 	$(AT)echo "🔨 Building Sphinx documentation 📘 as Markdown..."
 	$(AT)$(SPHINX) $(SPHINX_DIR) $(JEKYLL_OUTPUT_DIR)
 	$(AT)echo "✅ Sphinx Markdown build complete!"
+
 jekyll:
 	$(AT)echo "🔨 Building Jekyll site..."
 	$(AT)cd $(JEKYLL_DIR) && $(JEKYLL_BUILD)
@@ -177,12 +200,11 @@ readme:
 	$(AT)rm -r $(README_GEN_DIR)
 	$(AT)echo "✅ README.md auto generation complete!"
 
-build-docs: sphinx jekyll readme
-
 jekyll-serve: docs
 	$(AT)echo "🚀 Starting Jekyll development server..."
 	$(AT)cd $(JEKYLL_DIR) && $(JEKYLL_SERVE)
 
+build-docs: sphinx jekyll readme
 run-docs: jekyll-serve
 # --------------------------------------------------
 # Run {{ cookiecutter.package_name }} program
@@ -196,7 +218,7 @@ run:
 clean:
 	$(AT)echo "🧹 Clening build artifacts..."
 	$(AT)rm -rf $(SPHINX_DIR)/_build $(JEKYLL_OUTPUT_DIR)
-	$(AT)cd $(JEKYLL_DIR) && $(JEKYLL_CLEAN)
+	$(AT)$(call run_ci_safe, cd $(JEKYLL_DIR) && $(JEKYLL_CLEAN))
 	$(AT)rm -rf build dist *.egg-info
 	$(AT)find $(SRC_DIR) $(TEST_DIR) -name "__pycache__" -type d -exec rm -rf {} +
 	$(AT)-[ -d "$(VENV_DIR)" ] && rm -r $(VENV_DIR)
@@ -205,16 +227,18 @@ clean:
 # Help
 # --------------------------------------------------
 help:
-	$(AT)echo "📦 {{ cookiecutter.project_name }} Makefile"
+	$(AT)echo "📦 $(PACKAGE_NAME) Makefile"
 	$(AT)echo ""
 	$(AT)echo "Usage:"
 	$(AT)echo "  make venv                   Create virtual environment"
 	$(AT)echo "  make install                Install dependencies"
+	$(AT)echo "  make format-check           Run all project formatter checks (black)"
+	$(AT)echo "  make format-fix             Run all project formatter autofixes (black)"
 	$(AT)echo "  make ruff-lint-check        Run Ruff linter"
 	$(AT)echo "  make ruff-lint-fix          Auto-fix lint issues with python ruff"
 	$(AT)echo "  make yaml-lint-check        Run YAML linter"
-	$(AT)echo "  make jinja2-lint-check      Run jinja-cmd linter"
-	$(AT)echo "  make lint-check             Run all project linters (ruff, yaml, & jinja2)"
+	$(AT)echo "  make lint-check             Run all project linters (ruff & yaml)"
+	$(AT)echo "  make lint-fix               Run all project linter autofixes (ruff)"
 	$(AT)echo "  make typecheck              Run Mypy type checking"
 	$(AT)echo "  make test                   Run Pytest suite"
 	$(AT)echo "  make sphinx                 Generate Sphinx Documentation"

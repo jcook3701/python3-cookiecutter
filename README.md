@@ -38,3 +38,7 @@ replace ```test-project``` or any of the other variables with real context confi
 
 ### Authors Notes:  
 1. This code currently works with cookiecutter 1.7 from Ubuntu's apt repositories.  
+
+### TODO's
+1. [Poetry](https://python-poetry.org/docs/managing-dependencies/#group-include-poetry) library to manage python dependencies. 
+2. 

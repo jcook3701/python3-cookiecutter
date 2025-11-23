@@ -1,6 +1,6 @@
 # yaml lint
 ---
-name: Template YAML Lint
+name: YAML Lint
 
 on:
   push:

@@ -1,6 +1,6 @@
 # ruff lint
 ---
-name: Cookiecutter ruff Lint
+name: Python3 Ruff Lint
 
 on:
   push:

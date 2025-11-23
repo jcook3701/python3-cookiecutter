@@ -1,6 +1,6 @@
 # typecheck
 ---
-name: Typecheck
+name: Python3 Typecheck
 
 on:
   push:
