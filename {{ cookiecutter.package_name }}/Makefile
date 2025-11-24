@@ -179,7 +179,7 @@ sphinx:
 	$(AT)echo "✅ Sphinx Markdown build complete!"
 
 jekyll:
-    for dir in $(DOC_SUBDIRS); do \
+	for dir in $(DOC_SUBDIRS); do \
         $(MAKE) -C $$dir all || exit 1; \
     done
 
