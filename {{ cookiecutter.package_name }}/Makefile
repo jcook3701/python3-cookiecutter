@@ -19,7 +19,6 @@ ifeq ($(V),0)
 else
     AT =
 endif
-
 # Detect if we are running inside GitHub Actions CI.
 # GitHub sets the environment variable GITHUB_ACTIONS=true in workflows.
 # We set CI=1 if running in GitHub Actions, otherwise CI=0 for local runs.
@@ -28,7 +27,6 @@ CI := 1
 else
 CI := 0
 endif
-
 # Define a reusable CI-safe runner
 define run_ci_safe =
 ( $1 || [ "$(CI)" != "1" ] )
@@ -50,6 +48,12 @@ JEKYLL_DIR := $(DOCS_DIR)/jekyll
 
 SPHINX_BUILD_DIR := $(SPHINX_DIR)/_build/html
 JEKYLL_OUTPUT_DIR := $(JEKYLL_DIR)/sphinx
+# --------------------------------------------------
+# SUBDIRS (Recursive Make Builds)
+# --------------------------------------------------
+# TODO: $(SPHINX_DIR)
+DOC_SUBDIRS := $(JEKYLL_DIR)
+SUBDIRS := $(JEKYLL_DIR)
 # --------------------------------------------------
 # 🐍 Python / Virtual Environment
 # --------------------------------------------------
@@ -175,9 +179,9 @@ sphinx:
 	$(AT)echo "✅ Sphinx Markdown build complete!"
 
 jekyll:
-	$(AT)echo "🔨 Building Jekyll site..."
-	$(AT)cd $(JEKYLL_DIR) && $(JEKYLL_BUILD)
-	$(AT)echo "✅ Full documentation 📘 build complete!"
+    for dir in $(DOC_SUBDIRS); do \
+        $(MAKE) -C $$dir all || exit 1; \
+    done
 
 readme:
 	$(AT)echo "🔨 Building ./README.md 📘 with Jekyll..."
