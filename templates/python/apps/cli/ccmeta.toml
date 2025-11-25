@@ -1,0 +1,21 @@
+name = "Python CLI App"
+template_id = "python-cli-app"
+description = "Minimal Python CLI project with ccutils integration"
+language = "python"
+type = "application"
+version = "0.1.0"
+maintained = true
+
+tags = ["cli", "python", "starter"]
+
+[author]
+name = "Jared Cook"
+email = "jared@example.com"
+
+[supports]
+python = ">=3.9"
+
+[shared]
+make = ["base.mk", "python.mk", "docker.mk"]
+licenses = ["MIT", "ApacheV2"]
+precommit = ["python-hooks.yaml"]

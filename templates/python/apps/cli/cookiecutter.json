@@ -1,8 +1,9 @@
 {
   "project_name": "python3-cookiecutter",
   "package_name": "{{ cookiecutter.project_name|lower|replace('-', '_') }}",
-  "license": "MIT",
+  "license": ["MIT", "ApacheV2", "GPLV3"],
   "author": "Jared Cook",
+  "year": "2025",
   "email": "jcook3701+github@gmail.com",
   "version": "0.1.0",
   "description": "Description of Python3 project",

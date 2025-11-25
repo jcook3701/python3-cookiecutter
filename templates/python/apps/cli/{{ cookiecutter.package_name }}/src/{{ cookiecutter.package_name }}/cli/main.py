@@ -15,7 +15,7 @@ from {{ cookiecutter.package_name }}.models import CLIConfig
 
 from .options import verbose_mode, version_mode
 
-app = typer.Typer(help="{{ cookiecutter.project_name }}: {{ cookiecutter.description }}")
+app = typer.Typer(help="{{ cookiecutter.package_name }}: {{ cookiecutter.description }}")
 
 
 @app.callback(invoke_without_command=True)
@@ -29,7 +29,7 @@ def main(
         "--version",
         "-V",
         callback=version_mode,
-        help="Show the {{ cookiecutter.project_name }} version.",
+        help="Show the {{ cookiecutter.package_name }} version.",
     ),
 ) -> None:
     """
