@@ -18,7 +18,6 @@ $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git \
 ## Development
 
 1. Pull code from development branch while testing updates.  
-
 ``` shell
 $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git \
 	 --checkout develop \
@@ -27,18 +26,13 @@ $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git \
 ```
 replace ```test-project``` or any of the other variables with real context configuration variables:  
 
-### Future Ideas:  
+### Authors Notes:  
+1. This code currently works with cookiecutter 1.7 from Ubuntu's apt repositories.  
+
+### Future Ideas (TODOs):
 1. [Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
    * Add freecad paths for freecad projects.  
    * etc.  
 2. Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
 3. Update configuration file to include or disclude the Dockerfile (Only needed for webapps)
 4. Create seperate repo to utilze cookiecutter 1.7 with custom json config inorder to update pyproject.toml variables in 'config' variable.  
-
-
-### Authors Notes:  
-1. This code currently works with cookiecutter 1.7 from Ubuntu's apt repositories.  
-
-### TODO's
-1. [Poetry](https://python-poetry.org/docs/managing-dependencies/#group-include-poetry) library to manage python dependencies. 
-2. 

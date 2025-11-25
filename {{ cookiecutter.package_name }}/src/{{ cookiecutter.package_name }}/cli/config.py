@@ -2,8 +2,7 @@
 
 © All rights reserved. {{ cookiecutter.author }}
 
-See the LICENSE.TXT file for more details.
+See the LICENSE file for more details.
 
 Author: {{ cookiecutter.author }}
 """
-

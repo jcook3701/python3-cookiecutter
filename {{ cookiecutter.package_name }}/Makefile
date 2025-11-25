@@ -90,12 +90,36 @@ BLACK := $(PYTHON) -m black
 # --------------------------------------------------
 PYTEST := $(PYTHON) -m pytest
 # --------------------------------------------------
-# 📘 Documentation (Sphinx + Jekyll)
+# 📘 Documentation (Sphinx)
 # --------------------------------------------------
 SPHINX := $(PYTHON) -m sphinx -b markdown
-JEKYLL_BUILD := bundle exec jekyll build --quiet
-JEKYLL_CLEAN := bundle exec jekyll clean
-JEKYLL_SERVE := bundle exec jekyll serve
+# --------------------------------------------------
+# Cookiecutter Utilities (cc-utils)
+# --------------------------------------------------
+CCUTILS := $(PYTHON) -m ccutils
+# --------------------------------------------------
+# 🔖 Version Bumping (bumpy-my-version)
+# --------------------------------------------------
+BUMPVERSION := bump-my-version bump --verbose
+# Patch types:
+MAJOR := major
+MINOR := minor
+PATCH := patch
+# --------------------------------------------------
+# 📦 Build (build)
+# --------------------------------------------------
+BUILD := $(PYTHON) -m build
+# --------------------------------------------------
+# 🚀 Publishing (twine)
+# --------------------------------------------------
+TWINE := $(PYTHON) -m twine
+# Repos:
+PYPI := upload dist/*
+TESTPYPI := upload --repository testpypi --verbose dist/*
+# --------------------------------------------------
+# 🩹 Hacks
+# --------------------------------------------------
+BUILD_UTILS := git submodule update --init --recursive
 # --------------------------------------------------
 # 🏃‍♂️ {{ cookiecutter.package_name }} command
 # --------------------------------------------------
@@ -204,7 +228,7 @@ readme:
 	$(AT)rm -r $(README_GEN_DIR)
 	$(AT)echo "✅ README.md auto generation complete!"
 
-jekyll-serve: docs
+jekyll-serve: 
 	$(AT)echo "🚀 Starting Jekyll development server..."
 	$(AT)cd $(JEKYLL_DIR) && $(JEKYLL_SERVE)
 
@@ -216,6 +240,33 @@ run-docs: jekyll-serve
 run:
 	$(AT)echo "🏃‍♂️ running {{ cookiecutter.package_name }}..."
 	$(AT)$({{ cookiecutter.package_name|upper }})
+# --------------------------------------------------
+# bump version of program
+# --------------------------------------------------
+# TODO: Also create a git tag of current version.
+bump-version-patch:
+	$(AT)echo "🔖 Updating $(PACKAGE_NAME) version from $(VERSION)..."
+	$(AT)$(BUMPVERSION) $(PATCH)
+	$(AT)echo "✅ $(PACKAGE_NAME) version udpate complete!"
+# --------------------------------------------------
+# Build program
+# --------------------------------------------------
+build:
+	$(AT)echo "📦 Packing $(PACKAGE_NAME)..."
+	$(AT)$(BUILD)
+	$(AT)echo "✅ $(PACKAGE_NAME) packaging complete!"
+# --------------------------------------------------
+# Publish program (test.pypi & pypi)
+# --------------------------------------------------
+publish-test:
+	$(AT)echo "🚀 Publishing $(PACKAGE_NAME) to testpypi..."
+	$(AT)$(TWINE) $(TESTPYPI)
+	$(AT)echo "✅ $(PACKAGE_NAME) upload complete!"
+
+publish:
+	$(AT)echo "🚀 Publishing $(PACKAGE_NAME) to pypi..."
+	$(AT)$(TWINE) $(PYPI)
+	$(AT)echo "✅ $(PACKAGE_NAME) upload complete!"
 # --------------------------------------------------
 # Clean artifacts
 # --------------------------------------------------
@@ -232,6 +283,8 @@ clean:
 # --------------------------------------------------
 help:
 	$(AT)echo "📦 $(PACKAGE_NAME) Makefile"
+	$(AT)echo "   author: $(PACKAGE_AUTHOR)"
+	$(AT)echo "   version: $(PACKAGE_VERSION)"
 	$(AT)echo ""
 	$(AT)echo "Usage:"
 	$(AT)echo "  make venv                   Create virtual environment"

@@ -7,10 +7,10 @@ See the LICENSE file for more details.
 Author: {{ cookiecutter.author }}
 """
 
-from .config import ensure_config
-from .logger import setup_logging
+from .verbose import verbose_mode
+from .version import version_mode
 
 __all__ = [
-    "ensure_config",
-    "setup_logging",
+    "verbose_mode",
+    "version_mode",
 ]

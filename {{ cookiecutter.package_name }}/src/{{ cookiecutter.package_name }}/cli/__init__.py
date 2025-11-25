@@ -7,10 +7,8 @@ See the LICENSE file for more details.
 Author: {{ cookiecutter.author }}
 """
 
-from .config import ensure_config
-from .logger import setup_logging
+from .main import app
 
 __all__ = [
-    "ensure_config",
-    "setup_logging",
+    "app",
 ]

@@ -7,10 +7,11 @@ See the LICENSE file for more details.
 Author: {{ cookiecutter.author }}
 """
 
-from .config import ensure_config
-from .logger import setup_logging
+from .config import DEFAULT_CONFIG, CLIConfig
+from .metadata import DEFAULT_METADATA, Metadata
 
 __all__ = [
-    "ensure_config",
-    "setup_logging",
+    "DEFAULT_CONFIG",
+    "DEFAULT_METADATA",
+    "CLIConfig",
 ]
