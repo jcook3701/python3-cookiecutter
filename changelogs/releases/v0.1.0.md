@@ -67,6 +67,9 @@ Develop
 * updates to post_gen_project.  Now gives ability to add sphinx documentation as well.
 
 * updates for ci/cd within template.
+- Update template
+- Update template
+- Merge branch 'cookiecutter-template' into feat-001
 
 ### 🐛 Fixed
 
