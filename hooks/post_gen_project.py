@@ -1,122 +1,51 @@
-"""Python3 Cookiecutter Package
-
-© All rights reserved. Jared Cook
-
-See the LICENSE.TXT file for more details.
-
-Author: Jared Cook
-"""
+# post_gen_project.py for python3-cookiecutter
+#
+# Copyright (c) 2026, Jared Cook
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <www.gnu.org>.
+#
 
 import json
 import os
-import shutil
 
-from cookiecutter.main import cookiecutter
-
-
-def generate_docs_templates(context: dict) -> None:
-    """Generate one or more documentation templates inside docs/"""
-    project_dir = os.getcwd()
-    docs_dir = os.path.join(project_dir, "docs")
-    tmp_dir = os.path.join(docs_dir, "_tmp_docs")
-
-    os.makedirs(tmp_dir, exist_ok=True)
-
-    base_ctx = {
-        "project_name": context.get("project_name"),
-        "author": context.get("author"),
-        "version": context.get("version"),
-        "description": context.get("description"),
-    }
-
-    templates = {
-        "github": {
-            "enabled": context.get("add_github_docs", True),
-            "name": "Github",
-            "repo": "jcook3701/github-docs-cookiecutter",
-            "target": os.path.join(docs_dir, "jekyll"),
-            "extra_ctx": {
-                **base_ctx,
-                "theme": context.get("theme"),
-                "ga_tracking": context.get("ga_tracking"),
-                "github_username": context.get("github_username"),
-                "linkedin_usercode": context.get("linkedin_usercode"),
-                "twitter_username": context.get("twitter_username"),
-                "buymeacoffee_username": context.get("buymeacoffee_username"),
-            },
-        },
-        "sphinx": {
-            "enabled": context.get("add_sphinx_docs", True),
-            "name": "Sphinx",
-            "repo": "jcook3701/sphinx-cookiecutter",
-            "target": os.path.join(docs_dir, "sphinx"),
-            "extra_ctx": {
-                **base_ctx,
-            }
-        }
-    }
-
-    for _key, cfg in templates.items():
-        if not cfg.get("enabled", True):
-            print(f"🚫 Skipping {cfg['name']} docs (disabled)")
-            continue
-
-        name = cfg["name"]
-        repo = cfg["repo"]
-        target = cfg["target"]
-        extra_ctx = cfg["extra_ctx"]
-
-        print(f"📦 Generating {name} docs from {repo} → {target}")
-
-        try:
-            # Bake template into temp directory
-            cookiecutter(
-                f"https://github.com/{repo}.git",
-                no_input=True,
-                extra_context=extra_ctx,
-                output_dir=tmp_dir,
-            )
-
-            # Find the generated folder (Cookiecutter creates a subfolder automatically)
-            subdirs = [
-                os.path.join(tmp_dir, d)
-                for d in os.listdir(tmp_dir)
-                if os.path.isdir(os.path.join(tmp_dir, d))
-            ]
-            if not subdirs:
-                print(f"⚠️  No generated directory found for {name}")
-                continue
-
-            generated_dir = subdirs[0]
-
-            if os.path.exists(target):
-                shutil.rmtree(target)
-            shutil.move(generated_dir, target)
-
-            # Clean up tmp
-            for d in os.listdir(tmp_dir):
-                path = os.path.join(tmp_dir, d)
-                if os.path.isdir(path):
-                    shutil.rmtree(path)
-
-            print(f"✅ {name} Docs generated in {target}")
-
-        except Exception as e:
-            print(f"⚠️  Skipping {name} Docs generation: {e}")
-
-        print("🎉 All documentation templates generated successfully!")
+from nutrimatic.core import make
+from nutrimatic.hooks.post_gen_logic import (
+    generate_cliff_changelog_dirs,
+    generate_docs_templates,
+    get_make_cmds,
+)
 
 
 def main() -> None:
-   # Detect CI (e.g. GitHub Actions, GitLab CI, etc.)
+    """Cookiecutter Post Generation Scripts"""
+    # Detect CI (e.g. GitHub Actions, GitLab CI, etc.)
     if os.getenv("CI"):
         print("⚙️  Detected CI environment — skipping GitHub Docs generation.")
         return
+    os.environ["COOKIECUTTER_HOOKS"] = "true"
 
     # Access cookiecutter context safely
     context = json.loads("""{{ cookiecutter | jsonify }}""")
-
     generate_docs_templates(context)
+    generate_cliff_changelog_dirs()
+
+    # Run make commands to get project seeded
+    make_cmds: list[str] = get_make_cmds(context)
+
+    for cmd in make_cmds:
+        make(cmd)
 
 
 if __name__ == "__main__":
