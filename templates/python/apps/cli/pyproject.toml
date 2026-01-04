@@ -43,6 +43,7 @@ dev = [
   "bump-my-version>=1.2",
   "ruff>=0.14.0",
   "mypy==1.9",
+  "nutri-matic>=0.1",
   "pytest>=8.0",
   "pytest-cookies>=0.7",
   "yamllint>=1.0",
@@ -55,9 +56,6 @@ docs = [
   "sphinx-rtd-theme>=3.0",
   "sphinx-markdown-builder>=0.6",
   "sphinx-autodoc-typehints>=3.5",
-]
-testpypi = [
-  "cc-utils>=0.1",
 ]
 # ====================================
 # Setuptools Configuration:

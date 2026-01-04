@@ -97,10 +97,6 @@ JEKYLL_BUILD := bundle exec jekyll build --quiet
 JEKYLL_CLEAN := bundle exec jekyll clean
 JEKYLL_SERVE := bundle exec jekyll serve
 # --------------------------------------------------
-# Cookiecutter Utilities (cc-utils)
-# --------------------------------------------------
-CCUTILS := $(PYTHON) -m ccutils
-# --------------------------------------------------
 # 🔖 Version Bumping (bumpy-my-version)
 # --------------------------------------------------
 BUMPVERSION := bump-my-version bump --verbose
@@ -108,6 +104,10 @@ BUMPVERSION := bump-my-version bump --verbose
 MAJOR := major
 MINOR := minor
 PATCH := patch
+# --------------------------------------------------
+# 🏃‍♂️ Nutri-Matic command
+# --------------------------------------------------
+NUTRIMATIC := $(PYTHON) -m nutrimatic
 # --------------------------------------------------
 .PHONY: all venv install ruff-formatter ruff-lint-check ruff-lint-fix yaml-lint-check \
 	jinja2-lint-check lint-check typecheck test sphinx jekyll readme build-docs \
@@ -131,7 +131,6 @@ install: venv
 	$(AT)$(PIP) install -e $(DEPS)
 	$(AT)$(PIP) install -e $(DEV_DEPS)
 	$(AT)$(PIP) install -e $(DEV_DOCS)
-	$(AT)$(PIP) install --extra-index-url https://test.pypi.org/simple .[testpypi]
 	$(AT)echo "✅ Dependencies installed."
 # --------------------------------------------------
 # Formating (black)

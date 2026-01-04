@@ -1,21 +1,28 @@
+[template]
 name = "Python CLI App"
 template_id = "python-cli-app"
-description = "Minimal Python CLI project with ccutils integration"
+description = "Minimal Python CLI project with cc-utils integration"
 language = "python"
-type = "application"
+type = "app"
 version = "0.1.0"
+maintainer = "Jared Cook"
 maintained = true
 
 tags = ["cli", "python", "starter"]
 
 [author]
 name = "Jared Cook"
-email = "jared@example.com"
+email = "jcook3701+github@gmail.com"
 
-[supports]
-python = ">=3.9"
+[ci]
+lint = ["yaml-lint", "ruff-lint"]
+format = ["black-format"]
+test = []
+publish = []
+
+[docs]
+use = ["github-docs", "sphinx"]
 
 [shared]
 make = ["base.mk", "python.mk", "docker.mk"]
 licenses = ["MIT", "ApacheV2"]
-precommit = ["python-hooks.yaml"]
