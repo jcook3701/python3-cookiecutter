@@ -70,12 +70,15 @@ Develop
 - Update template
 - Update template
 - Merge branch 'cookiecutter-template' into feat-001
+- Update template
+- Merge branch 'cookiecutter-template' into feat-001
 
 ### 🐛 Fixed
 
 - *(upgrade)* Preping project to upgrade from cookiecutter-cookiecutter.
 - *(upgrade)* Swapped project from ansible to python for cookiecutter-cookiecutter.
 - *(spelling)* Corrected codespell errors.
+- *(upgrader)* Fixed the upgrader configuration file.
 
 ### 🚀 Added
 
