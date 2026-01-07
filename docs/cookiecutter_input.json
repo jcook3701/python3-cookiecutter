@@ -49,7 +49,7 @@
     "project_name": "python3-cookiecutter",
     "project_slug": "python3-cookiecutter",
     "python_version": "3.11",
-    "template_type": "python",
+    "template_type": "cookiecutter",
     "theme": "pmarsceill/just-the-docs",
     "twitter_username": "",
     "version": "0.1.0"
