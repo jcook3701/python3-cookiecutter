@@ -75,6 +75,7 @@ Develop
 
 - *(upgrade)* Preping project to upgrade from cookiecutter-cookiecutter.
 - *(upgrade)* Swapped project from ansible to python for cookiecutter-cookiecutter.
+- *(spelling)* Corrected codespell errors.
 
 ### 🚀 Added
 
