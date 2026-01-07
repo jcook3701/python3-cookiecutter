@@ -20,13 +20,13 @@ __Version:__ {{ site.version }}
 
 __Note:__ Unless you are using a newer version of cookiecutter >= 2, ```--no-input``` is necessary for template generation without error.  
 
-
 ## Usage Examples:
 
 __Example:__ Pull from main branch.  
 __Note:__ [Nutri-Matic](https://github.com/jcook3701/nutri-matic) is needed in active python environment.  
 
 1. Pull Project with cookiecutter command:  
+
 ``` shell
 $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git \
 	--no-input \
@@ -45,7 +45,6 @@ $ cookiecutter git@github.com:jcook3701/python3-cookiecutter.git \
 ```
 replace ```test-project``` or any of the other variables with real context configuration variables:  
 
-
 __Note:__ replace ```test-project``` or any of the other variables with real context configuration variables.  
 
 ***
@@ -53,6 +52,7 @@ __Note:__ replace ```test-project``` or any of the other variables with real con
 ## Development Strategy:
 
 __Note:__ All Makefile commands are used in ci/cd to ensure that if they pass locally they should also pass once pushed to github.  
+
 ### 🐍️ Build environment (.venv)
 
 ``` shell
@@ -142,7 +142,7 @@ __example:__
 
 ***
 
-## Requirements:
+## Requirements:  
 
 __Python 3.11__  
 
@@ -175,13 +175,14 @@ $ cargo install git-cliff
 ***
 
 ### Future Ideas:  
+
 1. [Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
    * Add freecad paths for freecad projects.  
    * etc.  
 2. Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
-3. Update configuration file to include or disclude the Dockerfile (Only needed for webapps)
-4. Create seperate repo to utilze cookiecutter 1.7 with custom json config inorder to update pyproject.toml variables in 'config' variable.  
-
+3. Update configuration file to include or disclude the Dockerfile (Only needed for a webapp)
+4. Create separate repo to utilize cookiecutter 1.7 with custom json config in order to update pyproject.toml variables in 'config' variable.  
 
 ### Authors Notes:  
+
 1. This code currently works with cookiecutter 1.7 from Ubuntu's apt repositories.  

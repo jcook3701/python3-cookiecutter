@@ -31,13 +31,13 @@
 <strong>Note:</strong> <a href="https://github.com/jcook3701/nutri-matic">Nutri-Matic</a> is needed in active python environment.</p>
 
 <ol>
-  <li>Pull Project with cookiecutter command:
-    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cookiecutter git@github.com:jcook3701/python3-cookiecutter.git <span class="se">\</span>
- <span class="nt">--no-input</span> <span class="se">\</span>
- <span class="nv">project_name</span><span class="o">=</span><span class="s2">"test-project"</span>  
-</code></pre></div>    </div>
-  </li>
+  <li>Pull Project with cookiecutter command:</li>
 </ol>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cookiecutter git@github.com:jcook3701/python3-cookiecutter.git <span class="se">\</span>
+	<span class="nt">--no-input</span> <span class="se">\</span>
+	<span class="nv">project_name</span><span class="o">=</span><span class="s2">"test-project"</span>  
+</code></pre></div></div>
 
 <p><strong>Example:</strong> Pull from develop branch.</p>
 
@@ -59,6 +59,7 @@
 <h2 id="development-strategy">Development Strategy:</h2>
 
 <p><strong>Note:</strong> All Makefile commands are used in ci/cd to ensure that if they pass locally they should also pass once pushed to github.</p>
+
 <h3 id="️-build-environment-venv">🐍️ Build environment (.venv)</h3>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>make <span class="nb">install</span>
@@ -166,6 +167,7 @@
 <hr />
 
 <h3 id="future-ideas">Future Ideas:</h3>
+
 <ol>
   <li><a href="https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories">Organizing cookiecutters in directories</a>
     <ul>
@@ -174,11 +176,12 @@
     </ul>
   </li>
   <li>Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.</li>
-  <li>Update configuration file to include or disclude the Dockerfile (Only needed for webapps)</li>
-  <li>Create seperate repo to utilze cookiecutter 1.7 with custom json config inorder to update pyproject.toml variables in ‘config’ variable.</li>
+  <li>Update configuration file to include or disclude the Dockerfile (Only needed for a webapp)</li>
+  <li>Create separate repo to utilize cookiecutter 1.7 with custom json config in order to update pyproject.toml variables in ‘config’ variable.</li>
 </ol>
 
 <h3 id="authors-notes">Authors Notes:</h3>
+
 <ol>
   <li>This code currently works with cookiecutter 1.7 from Ubuntu’s apt repositories.</li>
 </ol>

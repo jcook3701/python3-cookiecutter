@@ -79,6 +79,7 @@ Develop
 ### 🚀 Added
 
 - *(docs)* Readme update to make this look more professional.
+- *(template)* Upgrades for python template ci/cd and build.   Lint testing now appears to be fixed with updates to nutri-matic.
 
 ### 🧪 Tests
 

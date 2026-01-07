@@ -167,7 +167,7 @@ run:
 # Clean artifacts
 # --------------------------------------------------
 clean:
-	@echo "🧹 Clening build artifacts..."
+	@echo "🧹 Cleaning build artifacts..."
 	rm -rf $(SPHINX_DIR)/_build $(JEKYLL_OUTPUT_DIR)
 	cd $(JEKYLL_DIR) && $(JEKYLL_CLEAN)
 	rm -rf build dist *.egg-info
