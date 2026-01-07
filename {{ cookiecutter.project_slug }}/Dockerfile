@@ -28,5 +28,4 @@ RUN pip install -e .[dev]
 # RUN make test
 
 # Default command: run your project’s entry module
-# Replace `{{ cookiecutter.package_name }}` with actual generated package name
-CMD ["python", "-m", "{{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}"]
+CMD ["python", "-m", "{{ cookiecutter.project_slug }}.{{ cookiecutter.project_slug }}"]

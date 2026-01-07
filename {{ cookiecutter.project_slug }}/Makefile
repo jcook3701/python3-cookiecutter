@@ -1,10 +1,15 @@
-# Makefile
-# =========================================
-# Project: {{ cookiecutter.project_name }}
-# =========================================
+{% import '.cookiecutter_includes/license_header.j2' as license_macros with context %}
+{% import '.cookiecutter_includes/make/__init__.j2' as make_macros with context %}
+
+{{- license_macros.license_header(
+	cookiecutter.license,
+	cookiecutter.author,
+	cookiecutter.project_slug,
+	file_name='Makefile',
+	comment_style='hash') -}}
 
 # --------------------------------------------------
-# Environment Settings
+# ⚙️ Environment Settings
 # --------------------------------------------------
 SHELL := /bin/bash
 .SHELLFLAGS := -O globstar -c
@@ -58,9 +63,9 @@ JEKYLL_CLEAN := bundle exec jekyll clean
 JEKYLL_SERVE := bundle exec jekyll serve
 
 # --------------------------------------------------
-# {{ cookiecutter.package_name }} command
+# {{ cookiecutter.project_slug }} command
 # --------------------------------------------------
-{{ cookiecutter.package_name|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.package_name }}.{{ cookiecutter.package_name }}
+{{ cookiecutter.project_slug|upper }} := $(ACTIVATE) && $(PYTHON) -m {{ cookiecutter.project_slug }}.{{ cookiecutter.project_slug }}
 
 # -------------------------------------------------------------------
 .PHONY: all venv install ruff-lint-check ruff-lint-fix yaml-lint-check \
@@ -104,10 +109,10 @@ yaml-lint-check:
 	$(YAMLLINT) .
 
 jinja2-lint-check:
-	@echo "🔍 jinja2 linting all template files under {{ cookiecutter.package_name }}..."
+	@echo "🔍 jinja2 linting all template files under {{ cookiecutter.project_slug }}..."
 	jq '{cookiecutter: .}' cookiecutter.json > /tmp/_cc_wrapped.json
-	find '{{ cookiecutter.package_name }}' -type f \
-		! -path "{{ cookiecutter.package_name }}/.github/*" \
+	find '{{ cookiecutter.project_slug }}' -type f \
+		! -path "{{ cookiecutter.project_slug }}/.github/*" \
 		! -name "*.png" \
 		! -name "*.jpg" \
 		! -name "*.ico" \
@@ -152,11 +157,11 @@ jekyll-serve: docs
 
 
 # --------------------------------------------------
-# Run {{ cookiecutter.package_name }} program
+# Run {{ cookiecutter.project_slug }} program
 # --------------------------------------------------
 run:
-	@echo "⚙️ running {{ cookiecutter.package_name }}..."
-	$({{ cookiecutter.package_name|upper }})
+	@echo "⚙️ running {{ cookiecutter.project_slug }}..."
+	$({{ cookiecutter.project_slug|upper }})
 
 # --------------------------------------------------
 # Clean artifacts
@@ -187,6 +192,6 @@ help:
 	@echo "  make typecheck              Run Mypy type checking"
 	@echo "  make test                   Run Pytest suite"
 	@echo "  make docs                   Build Sphinx + Jekyll documentation"
-	@echo "  make run                    Run {{ cookiecutter.package_name }}.py"
+	@echo "  make run                    Run {{ cookiecutter.project_slug }}.py"
 	@echo "  make clean                  Clean build artifacts"
 	@echo "  make all                    Run install, lint, typecheck, test, and docs"

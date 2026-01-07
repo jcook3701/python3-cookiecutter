@@ -1,6 +1,6 @@
 {
   "project_name": "python3-cookiecutter",
-  "project_slug": "{{ cookiecutter.project_name | slugify }}",
+  "project_slug": "{{ cookiecutter.project_name |lower|replace('-', '_')|replace(' ', '_') }}",
   "author": "Jared Cook",
   "email": "jcook3701+github@gmail.com",
   "version": "0.1.0",
@@ -38,9 +38,9 @@
   "_hooks": {
     "post_gen_make_cmds": {
       "install": true,
-      "git-init": true,
-      "pre-commit-init": true,
-      "changelog": true,
+      "git-init": false,
+      "pre-commit-init": false,
+      "changelog": false,
       "build-docs": false
     }
   },

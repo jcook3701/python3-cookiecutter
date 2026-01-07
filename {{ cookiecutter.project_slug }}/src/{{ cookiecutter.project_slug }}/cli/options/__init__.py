@@ -3,16 +3,13 @@
   cookiecutter.license,
   cookiecutter.author,
   cookiecutter.project_slug,
-  file_name='__main__.py',
+  file_name='__init__.py',
   comment_style='hash') -}}
 
+from .verbose import verbose_mode
+from .version import version_mode
 
-from {{ cookiecutter.project_slug }}.cli.main import app
-
-
-def main() -> None:
-    app()
-
-
-if __name__ == "__main__":
-    main()
+__all__ = [
+    "verbose_mode",
+    "version_mode",
+]
