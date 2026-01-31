@@ -67,23 +67,27 @@ Develop
 * updates to post_gen_project.  Now gives ability to add sphinx documentation as well.
 
 * updates for ci/cd within template.
-- Update template
-- Update template
-- Merge branch 'cookiecutter-template' into feat-001
-- Update template
-- Merge branch 'cookiecutter-template' into feat-001
+- Feat 001 (#9)
 
-### 🐛 Fixed
+* fix(upgrade): preping project to upgrade from cookiecutter-cookiecutter.
 
-- *(upgrade)* Preping project to upgrade from cookiecutter-cookiecutter.
-- *(upgrade)* Swapped project from ansible to python for cookiecutter-cookiecutter.
-- *(spelling)* Corrected codespell errors.
-- *(upgrader)* Fixed the upgrader configuration file.
+* Update template
 
-### 🚀 Added
+* Update template
 
-- *(docs)* Readme update to make this look more professional.
-- *(template)* Upgrades for python template ci/cd and build.   Lint testing now appears to be fixed with updates to nutri-matic.
+* fix(upgrade): swapped project from ansible to python for cookiecutter-cookiecutter.
+
+* feat(docs): readme update to make this look more professional.
+
+* feat(template): Upgrades for python template ci/cd and build.   Lint testing now appears to be fixed with updates to nutri-matic.
+
+* fix(spelling): Corrected codespell errors.
+
+* Update template
+
+* fix(upgrader): fixed the upgrader configuration file.
+
+* fix(tests): fix to correct test to work for python template.  Need to come up with a way to correct this in cookiecutter-cookiecutter in the future.
 
 ### 🧪 Tests
 
