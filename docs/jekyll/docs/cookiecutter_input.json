@@ -37,6 +37,7 @@
     "project_slug": "python3-cookiecutter",
     "publication_year": "2025",
     "repo_url": "https://github.com/jcook3701/python3-cookiecutter",
+    "template_type": "cookiecutter",
     "theme": "just-the-docs/just-the-docs@v0.11.0",
     "timezone": "America/Los_Angeles",
     "twitter_username": "",

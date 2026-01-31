@@ -89,6 +89,10 @@ Develop
 
 * fix(tests): fix to correct test to work for python template.  Need to come up with a way to correct this in cookiecutter-cookiecutter in the future.
 
+### 🚀 Added
+
+- *(upgrade)* Settings update for cookiecutter_project_upgrader files.
+
 ### 🧪 Tests
 
 - Tests-fixes
