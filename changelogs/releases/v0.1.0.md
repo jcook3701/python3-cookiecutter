@@ -88,6 +88,11 @@ Develop
 * fix(upgrader): fixed the upgrader configuration file.
 
 * fix(tests): fix to correct test to work for python template.  Need to come up with a way to correct this in cookiecutter-cookiecutter in the future.
+- Update template
+- Update template
+- Update template
+- Update template
+- Merge branch 'cookiecutter-template' into feat-002
 
 ### 🚀 Added
 
