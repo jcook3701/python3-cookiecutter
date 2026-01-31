@@ -101,6 +101,7 @@ Develop
 ### 🚀 Added
 
 - *(upgrade)* Settings update for cookiecutter_project_upgrader files.
+- *(docs)* Readme updates.
 
 ### 🧪 Tests
 

@@ -27,7 +27,7 @@ The <strong>python3-cookiecutter</strong> depends on the following repositories 
 The <strong>python3-cookiecutter</strong> is used to maintain the build and ci/cd structure for the following projects.</p>
 
 <ul>
-  <li>**<a href="https://github.com/jcook3701/nutri-matic">Nutri-Matic</a> cookiecutter utilities for streamlining development and utilization of Cookiecutter templates.</li>
+  <li><strong><a href="https://github.com/jcook3701/nutri-matic">Nutri-Matic</a></strong> cookiecutter utilities for streamlining development and utilization of Cookiecutter templates.</li>
 </ul>
 
 <hr />
@@ -118,22 +118,12 @@ See the <a href="https://github.com/jcook3701/python3-cookiecutter/blob/master/L
 
 <hr />
 
-<h3 id="future-ideas">Future Ideas:</h3>
+<!--
+1. [Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
+   * Add freecad paths for freecad projects.  
+   * etc.  
+2. Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.  
+3. Update configuration file to include or disclude the Dockerfile (Only needed for a webapp)
+4. Create separate repo to utilize cookiecutter 1.7 with custom json config in order to update pyproject.toml variables in 'config' variable.  
 
-<ol>
-  <li><a href="https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories">Organizing cookiecutters in directories</a>
-    <ul>
-      <li>Add freecad paths for freecad projects.</li>
-      <li>etc.</li>
-    </ul>
-  </li>
-  <li>Create python repository to make it easy to swap nested vars but might eventually use newer version of cookiecutter from pypi.</li>
-  <li>Update configuration file to include or disclude the Dockerfile (Only needed for a webapp)</li>
-  <li>Create separate repo to utilize cookiecutter 1.7 with custom json config in order to update pyproject.toml variables in ‘config’ variable.</li>
-</ol>
-
-<h3 id="authors-notes">Authors Notes:</h3>
-
-<ol>
-  <li>This code currently works with cookiecutter 1.7 from Ubuntu’s apt repositories.</li>
-</ol>
+-->

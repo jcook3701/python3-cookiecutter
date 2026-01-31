@@ -19,7 +19,7 @@ The **{{ site.title }}** depends on the following repositories for its documenta
 **Maintains:**  
 The **{{ site.title }}** is used to maintain the build and ci/cd structure for the following projects.  
 
-* **[Nutri-Matic](https://github.com/jcook3701/nutri-matic) cookiecutter utilities for streamlining development and utilization of Cookiecutter templates.
+* **[Nutri-Matic](https://github.com/jcook3701/nutri-matic)** cookiecutter utilities for streamlining development and utilization of Cookiecutter templates.
 
 ***
 
@@ -99,8 +99,7 @@ SPDX-License-Identifier: {{ site.license }}
 
 ***
 
-### Future Ideas:  
-
+<!--
 1. [Organizing cookiecutters in directories](https://cookiecutter.readthedocs.io/en/latest/advanced/directories.html#organizing-cookiecutters-in-directories)  
    * Add freecad paths for freecad projects.  
    * etc.  
@@ -108,6 +107,4 @@ SPDX-License-Identifier: {{ site.license }}
 3. Update configuration file to include or disclude the Dockerfile (Only needed for a webapp)
 4. Create separate repo to utilize cookiecutter 1.7 with custom json config in order to update pyproject.toml variables in 'config' variable.  
 
-### Authors Notes:  
-
-1. This code currently works with cookiecutter 1.7 from Ubuntu's apt repositories.  
+-->
