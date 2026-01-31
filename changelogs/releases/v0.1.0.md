@@ -94,6 +94,10 @@ Develop
 - Update template
 - Merge branch 'cookiecutter-template' into feat-002
 
+### 🐛 Fixed
+
+- *(lint)* Linting fixes for license header.
+
 ### 🚀 Added
 
 - *(upgrade)* Settings update for cookiecutter_project_upgrader files.
