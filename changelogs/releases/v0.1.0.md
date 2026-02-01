@@ -103,6 +103,10 @@ Develop
 
 Feat 002 (#10)
 
+### 🐛 Fixed
+
+- *(upgrader)* Configuration settings.
+
 ### 🧪 Tests
 
 - Tests-fixes
