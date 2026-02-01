@@ -103,6 +103,7 @@ Develop
 - *(upgrade)* Settings update for cookiecutter_project_upgrader files.
 - *(docs)* Readme updates.
 - *(docs)* Readme updates.
+- *(docs)* Readme updates.
 
 ### 🧪 Tests
 
