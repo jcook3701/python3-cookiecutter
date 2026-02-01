@@ -104,6 +104,7 @@ Develop
 - *(docs)* Readme updates.
 - *(docs)* Readme updates.
 - *(docs)* Readme updates.
+- *(docs)* Updates to community health files for python templates.
 
 ### 🧪 Tests
 
