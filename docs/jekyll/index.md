@@ -1,8 +1,8 @@
 ---
 layout: default
-title: python3-cookiecutter
+title: "python3-cookiecutter"
 nav_order: 1
-description: Python3 cookiecutter template project + Github docs template generation + Sphinx docs template generation.
+description: "**Python3 cookiecutter** template project + **Github docs** template generation + **Sphinx docs** template generation."
 ---
 {% include snippet_loader.html %}
 
