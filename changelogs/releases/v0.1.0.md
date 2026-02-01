@@ -102,6 +102,12 @@ Develop
 - Merge pull request #11 from jcook3701/develop
 
 Feat 002 (#10)
+- Update template
+- Update template
+- Update template
+- Update template
+- Update template
+- Merge branch 'cookiecutter-template' into feat-003
 
 ### 🐛 Fixed
 
