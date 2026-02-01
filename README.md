@@ -11,7 +11,7 @@
 <strong>Version:</strong> 0.1.0</p>
 
 <h2 id="overview">Overview</h2>
-<p>Python3 cookiecutter template project + Github docs template generation + Sphinx docs template generation.</p>
+<p><strong>Python3 cookiecutter</strong> template project + <strong>Github docs</strong> template generation + <strong>Sphinx docs</strong> template generation.</p>
 
 <p><strong>Utilizes:</strong><br />
 The <strong>python3-cookiecutter</strong> depends on the following repositories for its documentation and sub-features.</p>

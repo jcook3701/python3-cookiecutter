@@ -24,7 +24,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "python3-cookiecutter"
 version = "0.1.0"
-description = "Python3 cookiecutter template project + Github docs template generation + Sphinx docs template generation."
+description = "**Python3 cookiecutter** template project + **Github docs** template generation + **Sphinx docs** template generation."
 authors = [
     { name="Jared Cook", email="jcook3701+github@gmail.com" }
 ]
