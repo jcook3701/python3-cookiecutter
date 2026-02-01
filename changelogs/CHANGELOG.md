@@ -88,23 +88,20 @@ Develop
 * fix(upgrader): fixed the upgrader configuration file.
 
 * fix(tests): fix to correct test to work for python template.  Need to come up with a way to correct this in cookiecutter-cookiecutter in the future.
-- Update template
-- Update template
-- Update template
-- Update template
-- Merge branch 'cookiecutter-template' into feat-002
+- Feat 002 (#10)
 
-### 🐛 Fixed
+* feat(upgrade): Settings update for cookiecutter_project_upgrader files.
 
-- *(lint)* Linting fixes for license header.
+* fix(lint): Linting fixes for license header.
 
-### 🚀 Added
+* feat(docs): Readme updates.
 
-- *(upgrade)* Settings update for cookiecutter_project_upgrader files.
-- *(docs)* Readme updates.
-- *(docs)* Readme updates.
-- *(docs)* Readme updates.
-- *(docs)* Updates to community health files for python templates.
+* feat(docs): Updates to community health files for python templates.
+
+* fix(tests): Fix for python cookiecutter hooks tests.
+- Merge pull request #11 from jcook3701/develop
+
+Feat 002 (#10)
 
 ### 🧪 Tests
 
